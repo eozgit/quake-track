@@ -31,5 +31,5 @@ jobs:
       with:
         app-name: 'quake-track'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_ff19c390eca14142ac57090873742cd9 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_5428e50af6eb4a10962f77ce7566fa1c }}
         package: ${{env.DOTNET_ROOT}}/myapp 
