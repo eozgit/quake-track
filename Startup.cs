@@ -39,9 +39,15 @@ namespace QuakeTrack
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
             services.AddAuthentication()
-                .AddIdentityServerJwt();
+                .AddIdentityServerJwt()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = Configuration["GoogleClientId"];
+                    options.ClientSecret = Configuration["GoogleClientSecret"];
+                });
+
             services.AddControllersWithViews();
-            
+
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddRazorPages();
