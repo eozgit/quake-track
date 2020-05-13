@@ -31,6 +31,11 @@ namespace QuakeTrack.Data
             modelBuilder.Entity<Project>().HasQueryFilter(p => !p.IsDeleted);
 
             modelBuilder.Entity<Issue>().HasQueryFilter(i => !i.IsDeleted);
+
+            modelBuilder.Entity<IssueLink>()
+                .HasOne(l => l.Subject)
+                .WithMany(s => s.LinkedAsSubject)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 }
