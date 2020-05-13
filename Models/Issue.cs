@@ -9,6 +9,8 @@ namespace QuakeTrack.Models
     {
         public int Id { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         [StringLength(60, MinimumLength = 3)]
         [Required]
         [Column(TypeName = "nvarchar(60)")]
