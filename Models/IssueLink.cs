@@ -5,12 +5,12 @@ namespace QuakeTrack.Models
 {
     public class IssueLink
     {
-        public int ObjectId { get; set; }
+        public int? ObjectId { get; set; }
 
         [InverseProperty("LinkedAsObject")]
         public virtual Issue Object { get; set; }
 
-        public int SubjectId { get; set; }
+        public int? SubjectId { get; set; }
 
         [InverseProperty("LinkedAsSubject")]
         public virtual Issue Subject { get; set; }
