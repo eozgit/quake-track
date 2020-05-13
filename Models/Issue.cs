@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -30,5 +31,8 @@ namespace QuakeTrack.Models
 
         [Column(TypeName = "int")]
         public Priority Priority { get; set; }
+
+        public ICollection<IssueLink> LinkedAsObject { get; set; }
+        public ICollection<IssueLink> LinkedAsSubject { get; set; }
     }
 }
