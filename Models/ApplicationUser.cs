@@ -8,7 +8,7 @@ namespace QuakeTrack.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public ICollection<ApplicationUserProject> UserProjects { get; set; }
-        public ICollection<Issue> Issues { get; set; }
+        public virtual ICollection<ApplicationUserProject> UserProjects { get; set; }
+        public virtual ICollection<Issue> Issues { get; set; }
     }
 }

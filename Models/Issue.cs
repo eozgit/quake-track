@@ -22,7 +22,7 @@ namespace QuakeTrack.Models
         public IssueType IssueType { get; set; }
 
         public string AssigneeId { get; set; }
-        public ApplicationUser Assignee { get; set; }
+        public virtual ApplicationUser Assignee { get; set; }
 
         public int Storypoints { get; set; }
 
@@ -32,7 +32,7 @@ namespace QuakeTrack.Models
         [Column(TypeName = "int")]
         public Priority Priority { get; set; }
 
-        public ICollection<IssueLink> LinkedAsObject { get; set; }
-        public ICollection<IssueLink> LinkedAsSubject { get; set; }
+        public virtual ICollection<IssueLink> LinkedAsObject { get; set; }
+        public virtual ICollection<IssueLink> LinkedAsSubject { get; set; }
     }
 }

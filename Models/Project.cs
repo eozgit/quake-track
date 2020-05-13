@@ -18,6 +18,6 @@ namespace QuakeTrack.Models
         [Column(TypeName = "nvarchar(300)")]
         public string Description { get; set; }
 
-        public ICollection<ApplicationUserProject> UserProjects { get; set; }
+        public virtual ICollection<ApplicationUserProject> UserProjects { get; set; }
     }
 }
