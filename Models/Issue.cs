@@ -34,6 +34,9 @@ namespace QuakeTrack.Models
         [Column(TypeName = "int")]
         public Priority Priority { get; set; }
 
+        public int? ProjectId { get; set; }
+        public Project Project { get; set; }
+
         public virtual ICollection<IssueLink> LinkedAsObject { get; set; }
         public virtual ICollection<IssueLink> LinkedAsSubject { get; set; }
     }

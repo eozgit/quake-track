@@ -21,5 +21,6 @@ namespace QuakeTrack.Models
         public string Description { get; set; }
 
         public virtual ICollection<ApplicationUserProject> UserProjects { get; set; }
+        public virtual ICollection<Issue> Issues { get; set; }
     }
 }
