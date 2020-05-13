@@ -17,5 +17,16 @@ namespace QuakeTrack.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ApplicationUserProject>()
+                .HasKey(c => new { c.UserId, c.ProjectId });
+
+            modelBuilder.Entity<IssueLink>()
+                .HasKey(c => new { c.ObjectId, c.SubjectId });
+        }
     }
 }
