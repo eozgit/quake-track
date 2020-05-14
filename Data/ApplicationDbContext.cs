@@ -18,6 +18,10 @@ namespace QuakeTrack.Data
         {
         }
 
+        public DbSet<Project> Project { get; set; }
+
+        public DbSet<Issue> Issue { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
