@@ -46,5 +46,15 @@ namespace QuakeTrack.Controllers
         {
             return new ObjectResult(db.Project.Find(projectId));
         }
+
+        [HttpDelete]
+        [Route("/projects/{projectId}")]
+        public virtual ActionResult<Project> DeleteProject([FromRoute][Required] int? projectId)
+        {
+            var project = db.Project.Find(projectId);
+            project.IsDeleted = true;
+            db.SaveChangesAsync();
+            return new ObjectResult(project);
+        }
     }
 }
