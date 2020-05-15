@@ -56,5 +56,18 @@ namespace QuakeTrack.Controllers
             db.SaveChangesAsync();
             return new ObjectResult(project);
         }
+
+        [HttpPatch]
+        [Route("/projects/{projectId}")]
+        public virtual ActionResult<Project> UpdateProject([FromBody] Project patch, [FromRoute][Required] int? projectId)
+        {
+            var project = db.Project.Find(projectId);
+
+            project.Name = patch.Name;
+            project.Description = patch.Description;
+
+            db.SaveChangesAsync();
+            return new ObjectResult(project);
+        }
     }
 }
