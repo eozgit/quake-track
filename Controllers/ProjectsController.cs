@@ -30,5 +30,13 @@ namespace QuakeTrack.Controllers
             query = query.Take((int)limit);
             return new ObjectResult(query.ToList());
         }
+
+        [HttpPost]
+        public virtual IActionResult CreateProject([FromBody] Project project)
+        {
+            db.Project.Add(project);
+            db.SaveChangesAsync();
+            return StatusCode(201);
+        }
     }
 }
