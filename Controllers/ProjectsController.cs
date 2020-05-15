@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -37,6 +38,13 @@ namespace QuakeTrack.Controllers
             db.Project.Add(project);
             db.SaveChangesAsync();
             return StatusCode(201);
+        }
+
+        [HttpGet]
+        [Route("/projects/{projectId}")]
+        public virtual ActionResult<Project> GetProject([FromRoute][Required] int? projectId)
+        {
+            return new ObjectResult(db.Project.Find(projectId));
         }
     }
 }
