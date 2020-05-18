@@ -147,5 +147,17 @@ namespace QuakeTrack.Controllers
                 .SingleOrDefault(p => p.Id == projectId);
             return new ObjectResult(project.Issues);
         }
+
+        [HttpPost]
+        [Route("/projects/{projectId}/issues")]
+        public virtual IActionResult CreateIssue([FromBody] Issue issue, [FromRoute][Required] int? projectId)
+        {
+            var project = db.Project
+                .Include(p => p.Issues)
+                .SingleOrDefault(p => p.Id == projectId);
+            project.Issues.Add(issue);
+            db.SaveChangesAsync();
+            return StatusCode(201);
+        }
     }
 }
