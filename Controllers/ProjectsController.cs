@@ -137,5 +137,15 @@ namespace QuakeTrack.Controllers
 
             return Ok("Removed");
         }
+
+        [HttpGet]
+        [Route("/projects/{projectId}/issues")]
+        public virtual IActionResult GetIssues([FromRoute][Required] int? projectId)
+        {
+            var project = db.Project
+                .Include(p => p.Issues)
+                .SingleOrDefault(p => p.Id == projectId);
+            return new ObjectResult(project.Issues);
+        }
     }
 }
