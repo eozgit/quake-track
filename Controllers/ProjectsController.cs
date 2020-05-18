@@ -192,5 +192,23 @@ namespace QuakeTrack.Controllers
 
             return new ObjectResult(issue);
         }
+
+        [HttpDelete]
+        [Route("/projects/{projectId}/issues/{issueId}")]
+        public virtual IActionResult DeleteIssue([FromRoute][Required] int? projectId, [FromRoute][Required] int? issueId)
+        {
+            var project = db.Project
+                .Include(p => p.Issues)
+                .SingleOrDefault(p => p.Id == projectId);
+            var issue = project.Issues.SingleOrDefault(i => i.Id == issueId);
+            if (issue != null)
+            {
+                project.Issues.Remove(issue);
+                issue.IsDeleted = true;
+                db.SaveChangesAsync();
+            }
+
+            return Ok("Deleted");
+        }
     }
 }
