@@ -159,5 +159,16 @@ namespace QuakeTrack.Controllers
             db.SaveChangesAsync();
             return StatusCode(201);
         }
+
+        [HttpGet]
+        [Route("/projects/{projectId}/issues/{issueId}")]
+        public virtual IActionResult GetIssue([FromRoute][Required] int? projectId, [FromRoute][Required] int? issueId)
+        {
+            var project = db.Project
+                .Include(p => p.Issues)
+                .SingleOrDefault(p => p.Id == projectId);
+            var issue = project.Issues.SingleOrDefault(i => i.Id == issueId);
+            return new ObjectResult(issue);
+        }
     }
 }
