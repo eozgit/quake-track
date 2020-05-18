@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 using QuakeTrack.Data;
 using QuakeTrack.Models;
 
@@ -68,6 +69,25 @@ namespace QuakeTrack.Controllers
 
             db.SaveChangesAsync();
             return new ObjectResult(project);
+        }
+
+        [HttpGet]
+        [Route("/projects/{projectId}/users")]
+        public virtual ActionResult<IEnumerable<ApplicationUser>> GetUsers([FromRoute][Required] int? projectId)
+        {
+            var project = db.Project
+                .Include(p => p.UserProjects)
+                    .ThenInclude(link => link.User)
+                .FirstOrDefault(p => p.Id == projectId);
+            var users = project.UserProjects
+                .Select(link => link.User).ToList();
+            var safe = users.Select(user => new
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email
+            });
+            return new ObjectResult(safe);
         }
     }
 }
