@@ -89,5 +89,34 @@ namespace QuakeTrack.Controllers
             });
             return new ObjectResult(safe);
         }
+
+        [HttpPatch]
+        [Route("/projects/{projectId}/users")]
+        public virtual ActionResult AddUser([FromBody] ApplicationUser userInfo, [FromRoute][Required] int? projectId)
+        {
+            var project = db.Project
+                .Include(project => project.UserProjects)
+                .FirstOrDefault(project => project.Id == projectId);
+
+            var user = db.Users.Where(u => u.Email == userInfo.Email).FirstOrDefault();
+            if (user != null)
+            {
+                var link = new ApplicationUserProject
+                {
+                    User = user,
+                    Project = project,
+                    Role = UserProjectRole.Contributor
+                };
+                project.UserProjects.Add(link);
+                db.SaveChangesAsync();
+            }
+
+            return new ObjectResult(new
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email
+            });
+        }
     }
 }
