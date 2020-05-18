@@ -118,5 +118,24 @@ namespace QuakeTrack.Controllers
                 Email = user.Email
             });
         }
+
+        [HttpDelete]
+        [Route("/projects/{projectId}/users/{userId}")]
+        public virtual IActionResult RemoveUser([FromRoute][Required] int? projectId, [FromRoute][Required] string userId)
+        {
+            var project = db.Project
+                .Include(p => p.UserProjects)
+                    .ThenInclude(link => link.User)
+                .FirstOrDefault(p => p.Id == projectId);
+
+            var user = project.UserProjects.SingleOrDefault(link => link.User.Id == userId);
+            if (user != null)
+            {
+                project.UserProjects.Remove(user);
+                db.SaveChangesAsync();
+            }
+
+            return Ok("Removed");
+        }
     }
 }
