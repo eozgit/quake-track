@@ -25,6 +25,7 @@ namespace QuakeTrack.Controllers
         }
 
         [HttpGet]
+        [Route("/api/projects")]
         public virtual ActionResult<IEnumerable<Project>> GetProjects([FromQuery] int? limit = 10, [FromQuery] int? skip = 0)
         {
             var query = db.Project.AsQueryable();
@@ -34,6 +35,7 @@ namespace QuakeTrack.Controllers
         }
 
         [HttpPost]
+        [Route("/api/projects")]
         public virtual IActionResult CreateProject([FromBody] Project project)
         {
             db.Project.Add(project);
@@ -42,14 +44,14 @@ namespace QuakeTrack.Controllers
         }
 
         [HttpGet]
-        [Route("/projects/{projectId}")]
+        [Route("/api/projects/{projectId}")]
         public virtual ActionResult<Project> GetProject([FromRoute][Required] int? projectId)
         {
             return new ObjectResult(db.Project.Find(projectId));
         }
 
         [HttpDelete]
-        [Route("/projects/{projectId}")]
+        [Route("/api/projects/{projectId}")]
         public virtual ActionResult<Project> DeleteProject([FromRoute][Required] int? projectId)
         {
             var project = db.Project.Find(projectId);
@@ -59,7 +61,7 @@ namespace QuakeTrack.Controllers
         }
 
         [HttpPatch]
-        [Route("/projects/{projectId}")]
+        [Route("/api/projects/{projectId}")]
         public virtual ActionResult<Project> UpdateProject([FromBody] Project patch, [FromRoute][Required] int? projectId)
         {
             var project = db.Project.Find(projectId);
@@ -72,7 +74,7 @@ namespace QuakeTrack.Controllers
         }
 
         [HttpGet]
-        [Route("/projects/{projectId}/users")]
+        [Route("/api/projects/{projectId}/users")]
         public virtual ActionResult<IEnumerable<ApplicationUser>> GetUsers([FromRoute][Required] int? projectId)
         {
             var project = db.Project
@@ -91,7 +93,7 @@ namespace QuakeTrack.Controllers
         }
 
         [HttpPatch]
-        [Route("/projects/{projectId}/users")]
+        [Route("/api/projects/{projectId}/users")]
         public virtual ActionResult AddUser([FromBody] ApplicationUser userInfo, [FromRoute][Required] int? projectId)
         {
             var project = db.Project
@@ -120,7 +122,7 @@ namespace QuakeTrack.Controllers
         }
 
         [HttpDelete]
-        [Route("/projects/{projectId}/users/{userId}")]
+        [Route("/api/projects/{projectId}/users/{userId}")]
         public virtual IActionResult RemoveUser([FromRoute][Required] int? projectId, [FromRoute][Required] string userId)
         {
             var project = db.Project
@@ -139,7 +141,7 @@ namespace QuakeTrack.Controllers
         }
 
         [HttpGet]
-        [Route("/projects/{projectId}/issues")]
+        [Route("/api/projects/{projectId}/issues")]
         public virtual IActionResult GetIssues([FromRoute][Required] int? projectId)
         {
             var project = db.Project
@@ -149,7 +151,7 @@ namespace QuakeTrack.Controllers
         }
 
         [HttpPost]
-        [Route("/projects/{projectId}/issues")]
+        [Route("/api/projects/{projectId}/issues")]
         public virtual IActionResult CreateIssue([FromBody] Issue issue, [FromRoute][Required] int? projectId)
         {
             var project = db.Project
@@ -161,7 +163,7 @@ namespace QuakeTrack.Controllers
         }
 
         [HttpGet]
-        [Route("/projects/{projectId}/issues/{issueId}")]
+        [Route("/api/projects/{projectId}/issues/{issueId}")]
         public virtual IActionResult GetIssue([FromRoute][Required] int? projectId, [FromRoute][Required] int? issueId)
         {
             var project = db.Project
@@ -172,7 +174,7 @@ namespace QuakeTrack.Controllers
         }
 
         [HttpPatch]
-        [Route("/projects/{projectId}/issues/{issueId}")]
+        [Route("/api/projects/{projectId}/issues/{issueId}")]
         public virtual IActionResult UpdateIssue([FromBody] Issue patch, [FromRoute][Required] int? projectId, [FromRoute][Required] int? issueId)
         {
             var project = db.Project
@@ -194,7 +196,7 @@ namespace QuakeTrack.Controllers
         }
 
         [HttpDelete]
-        [Route("/projects/{projectId}/issues/{issueId}")]
+        [Route("/api/projects/{projectId}/issues/{issueId}")]
         public virtual IActionResult DeleteIssue([FromRoute][Required] int? projectId, [FromRoute][Required] int? issueId)
         {
             var project = db.Project
