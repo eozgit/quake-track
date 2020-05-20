@@ -19,6 +19,7 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
 import { ProjectsPageComponent } from './projects-page/projects-page.component';
+import { ProjectsTableComponent } from './projects-table/projects-table.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ProjectsPageComponent } from './projects-page/projects-page.component';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    ProjectsPageComponent
+    ProjectsPageComponent,
+    ProjectsTableComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
