@@ -38,6 +38,7 @@ import { ProjectsPageComponent } from './projects-page/projects-page.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
+      { path: 'projects', component: ProjectsPageComponent, canActivate: [AuthorizeGuard] },
     ]),
     StoreModule.forRoot(reducers, {
       metaReducers,
