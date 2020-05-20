@@ -20,6 +20,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
 import { ProjectsPageComponent } from './projects-page/projects-page.component';
 import { ProjectsTableComponent } from './projects-table/projects-table.component';
+import { ProjectsRowComponent } from './projects-row/projects-row.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ProjectsTableComponent } from './projects-table/projects-table.componen
     CounterComponent,
     FetchDataComponent,
     ProjectsPageComponent,
-    ProjectsTableComponent
+    ProjectsTableComponent,
+    ProjectsRowComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
