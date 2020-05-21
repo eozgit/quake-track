@@ -1,3 +1,4 @@
+import { InjectionToken } from '@angular/core';
 import {
   ActionReducer,
   ActionReducerMap,
@@ -18,6 +19,9 @@ export const reducers: ActionReducerMap<State> = {
 
   [fromProject.projectFeatureKey]: fromProject.reducer,
 };
+
+export const REDUCERS_TOKEN = new InjectionToken<ActionReducerMap<State>>('App Reducers');
+export const reducerProvider = { provide: REDUCERS_TOKEN, useValue: reducers };
 
 
 export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];

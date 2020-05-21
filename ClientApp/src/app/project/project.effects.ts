@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, concatMap } from 'rxjs/operators';
-import { EMPTY, of } from 'rxjs';
+import { of } from 'rxjs';
 
 import * as ProjectActions from './project.actions';
+import { ApiClientService } from '../api-client.service';
 
 
 
@@ -11,12 +12,11 @@ import * as ProjectActions from './project.actions';
 export class ProjectEffects {
 
   loadProjects$ = createEffect(() => {
-    return this.actions$.pipe( 
+    return this.actions$.pipe(
 
       ofType(ProjectActions.loadProjects),
       concatMap(() =>
-        /** An EMPTY observable only emits completion. Replace with your own observable API request */
-        EMPTY.pipe(
+        this.apiClient.getProjects().pipe(
           map(data => ProjectActions.loadProjectsSuccess({ data })),
           catchError(error => of(ProjectActions.loadProjectsFailure({ error }))))
       )
@@ -25,6 +25,6 @@ export class ProjectEffects {
 
 
 
-  constructor(private actions$: Actions) {}
+  constructor(private actions$: Actions, private apiClient: ApiClientService) { }
 
 }

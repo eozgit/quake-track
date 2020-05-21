@@ -19,7 +19,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { ProjectsPageComponent } from './projects-page/projects-page.component';
 import { ProjectsTableComponent } from './projects-table/projects-table.component';
 import { ProjectsRowComponent } from './projects-row/projects-row.component';
-import { reducers, metaReducers } from './reducers';
+import { metaReducers, reducerProvider, REDUCERS_TOKEN } from './reducers';
 import * as fromProject from './project/project.reducer';
 import { ProjectEffects } from './project/project.effects';
 
@@ -46,19 +46,22 @@ import { ProjectEffects } from './project/project.effects';
       { path: 'projects', component: ProjectsPageComponent, canActivate: [AuthorizeGuard] },
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    StoreModule.forRoot(reducers, {
-      metaReducers, 
+    StoreModule.forRoot(REDUCERS_TOKEN, {
+      metaReducers,
       runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true,
       }
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    StoreModule.forFeature(fromProject.projectFeatureKey, fromProject.reducer),
+    StoreModule.forFeature(fromProject.projectFeatureKey, fromProject.PROJECT_REDUCER),
+    EffectsModule.forRoot([]),
     EffectsModule.forFeature([ProjectEffects]),
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
+    reducerProvider,
+    { provide: fromProject.PROJECT_REDUCER, useValue: fromProject.reducer }
   ],
   bootstrap: [AppComponent]
 })

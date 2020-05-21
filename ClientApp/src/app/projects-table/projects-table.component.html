@@ -1,2 +1,3 @@
-<p>projects-table works!</p>
-<app-projects-row></app-projects-row>
+<div class="container">
+    <app-projects-row *ngFor="let project of projects$ | async" [project]="project"></app-projects-row>
+</div>
