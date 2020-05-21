@@ -20,6 +20,8 @@ import { ProjectsPageComponent } from './projects-page/projects-page.component';
 import { ProjectsTableComponent } from './projects-table/projects-table.component';
 import { ProjectsRowComponent } from './projects-row/projects-row.component';
 import { reducers, metaReducers } from './reducers';
+import * as fromProject from './project/project.reducer';
+import { ProjectEffects } from './project/project.effects';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import { reducers, metaReducers } from './reducers';
       }
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    StoreModule.forFeature(fromProject.projectFeatureKey, fromProject.reducer),
+    EffectsModule.forFeature([ProjectEffects]),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }
