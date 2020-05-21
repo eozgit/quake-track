@@ -1,4 +1,4 @@
-export default class User {
+export default interface User {
     id: string;
     userName: string;
     email: string;

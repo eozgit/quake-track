@@ -1,6 +1,6 @@
 import User from "./user";
 
-export default class Issue {
+export default interface Issue {
     id: number;
     summary: string;
     description: string;
