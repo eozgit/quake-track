@@ -10,9 +10,11 @@ using Microsoft.EntityFrameworkCore;
 using QuakeTrack.Data;
 using QuakeTrack.Models;
 using QuakeTrack.Services;
+using QuakeTrack.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AutoMapper;
 
 namespace QuakeTrack
 {
@@ -49,6 +51,8 @@ namespace QuakeTrack
             services.AddControllersWithViews();
 
             services.AddTransient<IEmailSender, EmailSender>();
+
+            services.AddAutoMapper(c => c.AddProfile<Mapping>(), typeof(Startup));
 
             services.AddRazorPages();
             // In production, the Angular files will be served from this directory

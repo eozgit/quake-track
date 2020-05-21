@@ -1,14 +1,13 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 using QuakeTrack.Data;
 using QuakeTrack.Models;
+using QuakeTrack.ViewModels;
 
 namespace QuakeTrack.Controllers
 {
@@ -18,51 +17,54 @@ namespace QuakeTrack.Controllers
     public class ProjectsController : ControllerBase
     {
         private ApplicationDbContext db;
+        private IMapper mapper;
 
-        public ProjectsController(ApplicationDbContext _db)
+        public ProjectsController(ApplicationDbContext _db, IMapper _mapper)
         {
             db = _db;
+            mapper = _mapper;
         }
 
         [HttpGet]
         [Route("/api/projects")]
-        public virtual ActionResult<IEnumerable<Project>> GetProjects([FromQuery] int? limit = 10, [FromQuery] int? skip = 0)
+        public virtual IActionResult GetProjects([FromQuery] int limit = 10, [FromQuery] int skip = 0)
         {
             var query = db.Project.AsQueryable();
-            query = query.Skip((int)skip * (int)limit);
-            query = query.Take((int)limit);
-            return new ObjectResult(query.ToList());
+            query = query.Skip(skip * limit);
+            query = query.Take(limit);
+            var projects = query.Select(p => mapper.Map<ProjectViewModel>(p));
+            return new ObjectResult(projects);
         }
 
         [HttpPost]
         [Route("/api/projects")]
-        public virtual IActionResult CreateProject([FromBody] Project project)
+        public virtual IActionResult CreateProject([FromBody] ProjectViewModel project)
         {
-            db.Project.Add(project);
+            db.Project.Add(mapper.Map<Project>(project));
             db.SaveChangesAsync();
             return StatusCode(201);
         }
 
         [HttpGet]
         [Route("/api/projects/{projectId}")]
-        public virtual ActionResult<Project> GetProject([FromRoute][Required] int? projectId)
+        public virtual IActionResult GetProject([FromRoute][Required] int? projectId)
         {
-            return new ObjectResult(db.Project.Find(projectId));
+            return new ObjectResult(mapper.Map<ProjectViewModel>(db.Project.Find(projectId)));
         }
 
         [HttpDelete]
         [Route("/api/projects/{projectId}")]
-        public virtual ActionResult<Project> DeleteProject([FromRoute][Required] int? projectId)
+        public virtual IActionResult DeleteProject([FromRoute][Required] int? projectId)
         {
             var project = db.Project.Find(projectId);
             project.IsDeleted = true;
             db.SaveChangesAsync();
-            return new ObjectResult(project);
+            return new ObjectResult(mapper.Map<ProjectViewModel>(project));
         }
 
         [HttpPatch]
         [Route("/api/projects/{projectId}")]
-        public virtual ActionResult<Project> UpdateProject([FromBody] Project patch, [FromRoute][Required] int? projectId)
+        public virtual IActionResult UpdateProject([FromBody] ProjectViewModel patch, [FromRoute][Required] int? projectId)
         {
             var project = db.Project.Find(projectId);
 
@@ -70,31 +72,25 @@ namespace QuakeTrack.Controllers
             project.Description = patch.Description;
 
             db.SaveChangesAsync();
-            return new ObjectResult(project);
+            return new ObjectResult(mapper.Map<ProjectViewModel>(project));
         }
 
         [HttpGet]
         [Route("/api/projects/{projectId}/users")]
-        public virtual ActionResult<IEnumerable<ApplicationUser>> GetUsers([FromRoute][Required] int? projectId)
+        public virtual IActionResult GetUsers([FromRoute][Required] int? projectId)
         {
             var project = db.Project
                 .Include(p => p.UserProjects)
                     .ThenInclude(link => link.User)
                 .FirstOrDefault(p => p.Id == projectId);
             var users = project.UserProjects
-                .Select(link => link.User).ToList();
-            var safe = users.Select(user => new
-            {
-                Id = user.Id,
-                UserName = user.UserName,
-                Email = user.Email
-            });
-            return new ObjectResult(safe);
+                .Select(link => link.User);
+            return new ObjectResult(users.Select(user => mapper.Map<UserViewModel>(user)));
         }
 
         [HttpPatch]
         [Route("/api/projects/{projectId}/users")]
-        public virtual ActionResult AddUser([FromBody] ApplicationUser userInfo, [FromRoute][Required] int? projectId)
+        public virtual IActionResult AddUser([FromBody] ApplicationUser userInfo, [FromRoute][Required] int? projectId)
         {
             var project = db.Project
                 .Include(project => project.UserProjects)
@@ -113,12 +109,7 @@ namespace QuakeTrack.Controllers
                 db.SaveChangesAsync();
             }
 
-            return new ObjectResult(new
-            {
-                Id = user.Id,
-                UserName = user.UserName,
-                Email = user.Email
-            });
+            return new ObjectResult(mapper.Map<UserViewModel>(user));
         }
 
         [HttpDelete]
@@ -147,17 +138,19 @@ namespace QuakeTrack.Controllers
             var project = db.Project
                 .Include(p => p.Issues)
                 .SingleOrDefault(p => p.Id == projectId);
-            return new ObjectResult(project.Issues);
+            var issues = project.Issues.Select(issue => mapper.Map<IssueViewModel>(issue));
+            return new ObjectResult(issues);
         }
 
         [HttpPost]
         [Route("/api/projects/{projectId}/issues")]
-        public virtual IActionResult CreateIssue([FromBody] Issue issue, [FromRoute][Required] int? projectId)
+        public virtual IActionResult CreateIssue([FromBody] IssueViewModel issue, [FromRoute][Required] int? projectId)
         {
+            var model = mapper.Map<Issue>(issue);
             var project = db.Project
                 .Include(p => p.Issues)
                 .SingleOrDefault(p => p.Id == projectId);
-            project.Issues.Add(issue);
+            project.Issues.Add(model);
             db.SaveChangesAsync();
             return StatusCode(201);
         }
@@ -170,29 +163,31 @@ namespace QuakeTrack.Controllers
                 .Include(p => p.Issues)
                 .SingleOrDefault(p => p.Id == projectId);
             var issue = project.Issues.SingleOrDefault(i => i.Id == issueId);
-            return new ObjectResult(issue);
+            return new ObjectResult(mapper.Map<IssueViewModel>(issue));
         }
 
         [HttpPatch]
         [Route("/api/projects/{projectId}/issues/{issueId}")]
-        public virtual IActionResult UpdateIssue([FromBody] Issue patch, [FromRoute][Required] int? projectId, [FromRoute][Required] int? issueId)
+        public virtual IActionResult UpdateIssue([FromBody] IssueViewModel patch, [FromRoute][Required] int? projectId, [FromRoute][Required] int? issueId)
         {
+            var model = mapper.Map<Issue>(patch);
+
             var project = db.Project
                 .Include(p => p.Issues)
                 .SingleOrDefault(p => p.Id == projectId);
             var issue = project.Issues.SingleOrDefault(i => i.Id == issueId);
 
-            issue.Summary = patch.Summary;
-            issue.Description = patch.Description;
-            issue.IssueType = patch.IssueType;
-            issue.Assignee = patch.Assignee;
-            issue.Storypoints = patch.Storypoints;
-            issue.Status = patch.Status;
-            issue.Priority = patch.Priority;
+            issue.Summary = model.Summary;
+            issue.Description = model.Description;
+            issue.IssueType = model.IssueType;
+            issue.Assignee = model.Assignee;
+            issue.Storypoints = model.Storypoints;
+            issue.Status = model.Status;
+            issue.Priority = model.Priority;
 
             db.SaveChangesAsync();
 
-            return new ObjectResult(issue);
+            return new ObjectResult(mapper.Map<IssueViewModel>(issue));
         }
 
         [HttpDelete]
