@@ -22,6 +22,7 @@
     "@angular/platform-server": "8.2.12",
     "@angular/router": "8.2.12",
     "@ngrx/effects": "^8.6.0",
+    "@ngrx/schematics": "^9.1.2",
     "@ngrx/store": "^8.6.0",
     "@ngrx/store-devtools": "^8.6.0",
     "@nguniversal/module-map-ngfactory-loader": "8.1.1",
