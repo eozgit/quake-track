@@ -19,6 +19,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { ProjectsPageComponent } from './projects-page/projects-page.component';
 import { ProjectsTableComponent } from './projects-table/projects-table.component';
 import { ProjectsRowComponent } from './projects-row/projects-row.component';
+import { reducers, metaReducers } from './reducers';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,14 @@ import { ProjectsRowComponent } from './projects-row/projects-row.component';
       { path: 'projects', component: ProjectsPageComponent, canActivate: [AuthorizeGuard] },
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreModule.forRoot(reducers, {
+      metaReducers, 
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+      }
+    }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }
