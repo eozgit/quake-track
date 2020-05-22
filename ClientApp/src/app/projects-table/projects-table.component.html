@@ -1,3 +1,19 @@
-<div class="container">
-    <app-projects-row *ngFor="let project of projects$ | async" [project]="project"></app-projects-row>
-</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Project</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Board</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- <app-projects-row *ngFor="let project of projects$ | async" [project]="project"></app-projects-row> -->
+        <tr *ngFor="let project of projects$ | async">
+            <th scope="row">{{ project.name }}</th>
+            <td>Edit</td>
+            <td>Delete</td>
+            <td>Board</td>
+        </tr>
+    </tbody>
+</table>

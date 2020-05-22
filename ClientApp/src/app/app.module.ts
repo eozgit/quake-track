@@ -18,7 +18,6 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { ProjectsPageComponent } from './projects-page/projects-page.component';
 import { ProjectsTableComponent } from './projects-table/projects-table.component';
-import { ProjectsRowComponent } from './projects-row/projects-row.component';
 import { metaReducers, reducerProvider, REDUCERS_TOKEN } from './reducers';
 import * as fromProject from './project/project.reducer';
 import { ProjectEffects } from './project/project.effects';
@@ -31,8 +30,7 @@ import { ProjectEffects } from './project/project.effects';
     CounterComponent,
     FetchDataComponent,
     ProjectsPageComponent,
-    ProjectsTableComponent,
-    ProjectsRowComponent
+    ProjectsTableComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
