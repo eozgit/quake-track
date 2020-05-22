@@ -9,6 +9,6 @@ export class ApiClientService {
   constructor(private http: HttpClient) { }
 
   getProjects() {
-    return this.http.get('/api/projects');
+    return this.http.get('/api/projects?limit=100');
   }
 }
