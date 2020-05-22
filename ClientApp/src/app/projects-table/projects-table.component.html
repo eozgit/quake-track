@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th scope="col">Project</th>
@@ -8,12 +8,17 @@
         </tr>
     </thead>
     <tbody>
-        <!-- <app-projects-row *ngFor="let project of projects$ | async" [project]="project"></app-projects-row> -->
         <tr *ngFor="let project of projects$ | async">
             <th scope="row">{{ project.name }}</th>
-            <td>Edit</td>
-            <td>Delete</td>
-            <td>Board</td>
+            <td>
+                <fa-icon [icon]="faEdit" class="button"></fa-icon>
+            </td>
+            <td>
+                <fa-icon [icon]="faTrash" class="button"></fa-icon>
+            </td>
+            <td>
+                <fa-icon [icon]="faColumns" class="button"></fa-icon>
+            </td>
         </tr>
     </tbody>
 </table>

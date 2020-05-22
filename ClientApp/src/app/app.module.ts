@@ -21,6 +21,7 @@ import { ProjectsTableComponent } from './projects-table/projects-table.componen
 import { metaReducers, reducerProvider, REDUCERS_TOKEN } from './reducers';
 import * as fromProject from './project/project.reducer';
 import { ProjectEffects } from './project/project.effects';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { ProjectEffects } from './project/project.effects';
     StoreModule.forFeature(fromProject.projectFeatureKey, fromProject.PROJECT_REDUCER),
     EffectsModule.forRoot([]),
     EffectsModule.forFeature([ProjectEffects]),
+    FontAwesomeModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },

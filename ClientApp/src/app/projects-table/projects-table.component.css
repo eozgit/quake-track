@@ -1,0 +1,8 @@
+.button {
+    cursor: pointer;
+    opacity: 10%;
+}
+
+tr:hover fa-icon {
+    opacity: 100%;
+}
