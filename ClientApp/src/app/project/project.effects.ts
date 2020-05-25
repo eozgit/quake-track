@@ -23,6 +23,28 @@ export class ProjectEffects {
     );
   });
 
+  deleteProject$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(ProjectActions.deleteProject),
+      concatMap(action =>
+        this.apiClient.deleteProject(action.projectId).pipe(
+          map(data => ProjectActions.deleteProjectSuccess({ data })),
+          catchError(error => of(ProjectActions.deleteProjectFailure({ error }))))
+      )
+    );
+  });
+
+  deleteProjectSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(ProjectActions.deleteProjectSuccess),
+      map(action =>
+        ProjectActions.loadProjects()
+      )
+    );
+  });
+
 
 
   constructor(private actions$: Actions, private apiClient: ApiClientService) { }

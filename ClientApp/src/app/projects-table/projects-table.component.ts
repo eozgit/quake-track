@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { faEdit, faTrash, faColumns } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import * as ProjectActions from '../project/project.actions';
+import { loadProjects } from '../project/project.actions';
 import Project from '../models/project';
 import { State } from '../reducers';
 import { DeleteProjectDialogComponent } from '../delete-project-dialog/delete-project-dialog.component';
@@ -22,13 +22,14 @@ export class ProjectsTableComponent implements OnInit {
   constructor(private store: Store<State>, private modalService: NgbModal) { }
 
   ngOnInit() {
-    this.store.dispatch(ProjectActions.loadProjects());
+    this.store.dispatch(loadProjects());
   }
 
-  open() {
+  openDeleteModal(projectId: number) {
     const modalRef = this.modalService.open(DeleteProjectDialogComponent);
     const dialog = modalRef.componentInstance as DeleteProjectDialogComponent;
     dialog.modalRef = modalRef;
+    dialog.projectId = projectId;
   }
 
 }

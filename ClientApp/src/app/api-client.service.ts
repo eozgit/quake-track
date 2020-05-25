@@ -11,4 +11,8 @@ export class ApiClientService {
   getProjects() {
     return this.http.get('/api/projects?limit=100');
   }
+
+  deleteProject(id: number) {
+    return this.http.delete('/api/projects/' + id);
+  }
 }
