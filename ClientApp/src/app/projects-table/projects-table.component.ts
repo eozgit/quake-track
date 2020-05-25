@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { faEdit, faTrash, faColumns } from '@fortawesome/free-solid-svg-icons';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as ProjectActions from '../project/project.actions';
 import Project from '../models/project';
 import { State } from '../reducers';
+import { DeleteProjectDialogComponent } from '../delete-project-dialog/delete-project-dialog.component';
 
 @Component({
   selector: 'app-projects-table',
@@ -17,10 +19,16 @@ export class ProjectsTableComponent implements OnInit {
   faTrash = faTrash;
   faColumns = faColumns;
 
-  constructor(private store: Store<State>) { }
+  constructor(private store: Store<State>, private modalService: NgbModal) { }
 
   ngOnInit() {
     this.store.dispatch(ProjectActions.loadProjects());
+  }
+
+  open() {
+    const modalRef = this.modalService.open(DeleteProjectDialogComponent);
+    const dialog = modalRef.componentInstance as DeleteProjectDialogComponent;
+    dialog.modalRef = modalRef;
   }
 
 }

@@ -22,6 +22,8 @@ import { metaReducers, reducerProvider, REDUCERS_TOKEN } from './reducers';
 import * as fromProject from './project/project.reducer';
 import { ProjectEffects } from './project/project.effects';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DeleteProjectDialogComponent } from './delete-project-dialog/delete-project-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CounterComponent,
     FetchDataComponent,
     ProjectsPageComponent,
-    ProjectsTableComponent
+    ProjectsTableComponent,
+    DeleteProjectDialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -57,12 +60,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     EffectsModule.forRoot([]),
     EffectsModule.forFeature([ProjectEffects]),
     FontAwesomeModule,
+    NgbModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
     reducerProvider,
     { provide: fromProject.PROJECT_REDUCER, useValue: fromProject.reducer }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DeleteProjectDialogComponent]
 })
 export class AppModule { }
