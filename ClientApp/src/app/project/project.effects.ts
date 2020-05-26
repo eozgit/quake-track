@@ -45,6 +45,18 @@ export class ProjectEffects {
     );
   });
 
+  getProject$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(ProjectActions.getProject),
+      concatMap(action =>
+        this.apiClient.getProject(action.projectId).pipe(
+          map(data => ProjectActions.getProjectSuccess({ data })),
+          catchError(error => of(ProjectActions.getProjectFailure({ error }))))
+      )
+    );
+  });
+
 
 
   constructor(private actions$: Actions, private apiClient: ApiClientService) { }

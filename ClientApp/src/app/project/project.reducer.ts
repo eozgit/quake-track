@@ -7,10 +7,18 @@ export const projectFeatureKey = 'project';
 
 export interface State {
   projects: Project[];
+  currentProject: Project;
 }
 
 export const initialState: State = {
-  projects: []
+  projects: [],
+  currentProject: {
+    id: null,
+    name: null,
+    description: null,
+    issues: null,
+    users: null
+  }
 };
 
 
@@ -22,6 +30,7 @@ export const reducer = createReducer(
     return { ...state, projects: action.data };
   }),
   on(ProjectActions.loadProjectsFailure, (state, action) => state),
+  on(ProjectActions.getProjectSuccess, (state, action) => ({ ...state, currentProject: action.data })),
 
 );
 

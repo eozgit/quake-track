@@ -7,6 +7,8 @@ import { loadProjects } from '../project/project.actions';
 import Project from '../models/project';
 import { State } from '../reducers';
 import { DeleteProjectDialogComponent } from '../delete-project-dialog/delete-project-dialog.component';
+import { EditProjectDialogComponent } from '../edit-project-dialog/edit-project-dialog.component';
+import { selectProjects } from '../project/project.selectors';
 
 @Component({
   selector: 'app-projects-table',
@@ -14,7 +16,7 @@ import { DeleteProjectDialogComponent } from '../delete-project-dialog/delete-pr
   styleUrls: ['./projects-table.component.css']
 })
 export class ProjectsTableComponent implements OnInit {
-  projects$: Observable<Project[]> = this.store.select(state => state.project.projects);
+  projects$: Observable<Project[]> = this.store.select(selectProjects);
   faEdit = faEdit;
   faTrash = faTrash;
   faColumns = faColumns;
@@ -28,6 +30,13 @@ export class ProjectsTableComponent implements OnInit {
   openDeleteModal(projectId: number) {
     const modalRef = this.modalService.open(DeleteProjectDialogComponent);
     const dialog = modalRef.componentInstance as DeleteProjectDialogComponent;
+    dialog.modalRef = modalRef;
+    dialog.projectId = projectId;
+  }
+
+  openEditModal(projectId: number) {
+    const modalRef = this.modalService.open(EditProjectDialogComponent);
+    const dialog = modalRef.componentInstance as EditProjectDialogComponent;
     dialog.modalRef = modalRef;
     dialog.projectId = projectId;
   }

@@ -29,3 +29,18 @@ export const deleteProjectFailure = createAction(
   '[API Delete Project] Failure',
   props<{ error: any }>()
 );
+
+export const getProject = createAction(
+  '[Edit Project Dialog] Get Project',
+  props<{ projectId: number }>()
+);
+
+export const getProjectSuccess = createAction(
+  '[API Get Project] Success',
+  props<{ data: any }>()
+);
+
+export const getProjectFailure = createAction(
+  '[API Get Project] Failure',
+  props<{ error: any }>()
+);

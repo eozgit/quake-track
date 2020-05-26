@@ -24,6 +24,7 @@ import { ProjectEffects } from './project/project.effects';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteProjectDialogComponent } from './delete-project-dialog/delete-project-dialog.component';
+import { EditProjectDialogComponent } from './edit-project-dialog/edit-project-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { DeleteProjectDialogComponent } from './delete-project-dialog/delete-pro
     FetchDataComponent,
     ProjectsPageComponent,
     ProjectsTableComponent,
-    DeleteProjectDialogComponent
+    DeleteProjectDialogComponent,
+    EditProjectDialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -68,6 +70,6 @@ import { DeleteProjectDialogComponent } from './delete-project-dialog/delete-pro
     { provide: fromProject.PROJECT_REDUCER, useValue: fromProject.reducer }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DeleteProjectDialogComponent]
+  entryComponents: [DeleteProjectDialogComponent, EditProjectDialogComponent]
 })
 export class AppModule { }

@@ -12,6 +12,10 @@ export class ApiClientService {
     return this.http.get('/api/projects?limit=100');
   }
 
+  getProject(id: number) {
+    return this.http.get('/api/projects/' + id);
+  }
+
   deleteProject(id: number) {
     return this.http.delete('/api/projects/' + id);
   }
