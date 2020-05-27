@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import Project from './models/project';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,10 @@ export class ApiClientService {
 
   getProject(id: number) {
     return this.http.get('/api/projects/' + id);
+  }
+
+  updateProject(project: Project) {
+    return this.http.patch('/api/projects/' + project.id, project);
   }
 
   deleteProject(id: number) {

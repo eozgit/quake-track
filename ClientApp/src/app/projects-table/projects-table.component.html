@@ -11,7 +11,7 @@
         <tr *ngFor="let project of projects$ | async">
             <th scope="row">{{ project.name }}</th>
             <td>
-                <fa-icon [icon]="faEdit" class="button" (click)="openEditModal(project.id)"></fa-icon>
+                <fa-icon [icon]="faEdit" class="button" (click)="edit(project.id)"></fa-icon>
             </td>
             <td>
                 <fa-icon [icon]="faTrash" class="button" (click)="openDeleteModal(project.id)"></fa-icon>

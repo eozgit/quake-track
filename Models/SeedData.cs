@@ -26,8 +26,7 @@ namespace QuakeTrack.Models
                     new Project
                     {
                         Name = "Make a Cat Ramp",
-                        Description = Truncate(@"Original: https://www.instructables.com/id/Why-Do-We-Want-to-Make-a-Cat-Ramp-You-Might-Ask/
-We have this fancy cat litter box that is supposed to keep the dogs away from the box. EEEWWWWWW gross I know. The problem is that no matter what we do to get the cat into this thing so she will use her litter box she won't do it. Believe me we tried with treats, love, cat nip, and force (which was a mistake we admit). We think that making a ramp up to the entrance will get help her to use it and still keep the dogs away.", 300),
+                        Description = "We have this fancy cat litter box that is supposed to keep the dogs away from the box. EEEWWWWWW gross I know... Original: https://www.instructables.com/id/Why-Do-We-Want-to-Make-a-Cat-Ramp-You-Might-Ask/",
                         Issues = new List<Issue> {
                             new Issue
                             {
@@ -153,9 +152,7 @@ Apply more coats if needed and let sit over night.", 300),
                     new Project
                     {
                         Name = "Face Mask",
-                        Description = Truncate(@"Original: https://www.instructables.com/id/AB-Mask-for-a-Nurse-by-a-Nurse/
-A.B. Mask This pattern is designed to fit in two ways. First, directly over the face, similar to a surgical mask. Second, the pleats expand, allowing the mask to fit over many models of N-95 to provide a protective barrier, in the hope of extending the lifetime of the respirator. The mask can and should be washed after your shift, just like your scrubs.
-I recommend using tightly woven fabric. This pattern was developed using high quality 100% cotton. Pattern listed here is to make one mask out of a fat quarter of fabric. I am confident there are better ways to cut out pieces for large scale production.", 300),
+                        Description = "A.B. Mask This pattern is designed to fit in two ways. First, directly over the face, similar to a surgical mask. Second, the pleats expand, allowing the mask to fit over many models of N-95... Original: https://www.instructables.com/id/AB-Mask-for-a-Nurse-by-a-Nurse/",
                         Issues = new List<Issue> {
                             new Issue
                             {
@@ -326,9 +323,7 @@ Sew Binding and Ties.", 300),
                     new Project
                     {
                         Name = "Pan Fry the Perfect Steak",
-                        Description = Truncate(@"Original: https://www.instructables.com/id/How-To-Pan-Fry-the-Perfect-Steak/
-One of my favorite meals to cook for myself is a pan fried steak. Steak is a tricky food to get right, but I have perfected my method for cooking one. This step-by-step instruction will explain in detail how to pan fry a steak for yourself.
-This tutorial is for people with prior cooking experience and should not be attempted by anyone who does not feel comfortable in the kitchen. This is a very precise and time sensitive process that could easily turn into a tough, leathery disaster. But this steak is surprisingly easy to prepare as long as you properly prepare and follow each step.", 300),
+                        Description = "One of my favorite meals to cook for myself is a pan fried steak. Steak is a tricky food to get right, but I have perfected my method for cooking one... Original: https://www.instructables.com/id/How-To-Pan-Fry-the-Perfect-Steak/",
                         Issues = new List<Issue> {
                             new Issue
                             {

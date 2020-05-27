@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
+import { clone } from "lodash";
 import { State } from '../reducers';
-import { getProject } from '../project/project.actions';
+import { updateProject } from '../project/project.actions';
 import { selectCurrentProject } from '../project/project.selectors';
 import Project from '../models/project';
 
@@ -15,12 +17,25 @@ import Project from '../models/project';
 export class EditProjectDialogComponent implements OnInit {
   project$: Observable<Project> = this.store.select(selectCurrentProject);
   modalRef: NgbModalRef;
+  project: Project = {
+    id: null,
+    name: "",
+    description: "",
+    issues: [],
+    users: [],
+  };
   projectId: number;
 
   constructor(private store: Store<State>) { }
 
   ngOnInit() {
-    this.store.dispatch(getProject({ projectId: this.projectId }));
+    this.project$.pipe(take(1)).toPromise().then(p => this.project = clone(p));
   }
 
+  save() {
+    this.store.dispatch(updateProject({
+      project: this.project
+    }));
+
+  }
 }

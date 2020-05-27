@@ -44,3 +44,23 @@ export const getProjectFailure = createAction(
   '[API Get Project] Failure',
   props<{ error: any }>()
 );
+
+export const editProject = createAction(
+  '[Project Table] Edit Project',
+  props<{ projectId: number }>()
+);
+
+export const updateProject = createAction(
+  '[Edit Project Dialog] Update Project',
+  props<{ project: Project }>()
+);
+
+export const updateProjectSuccess = createAction(
+  '[API Update Project] Success',
+  props<{ data: any }>()
+);
+
+export const updateProjectFailure = createAction(
+  '[API Update Project] Failure',
+  props<{ error: any }>()
+);

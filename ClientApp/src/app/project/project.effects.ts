@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { catchError, map, concatMap, tap, throttle } from 'rxjs/operators';
+import { of, interval } from 'rxjs';
 
 import * as ProjectActions from './project.actions';
 import { ApiClientService } from '../api-client.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EditProjectDialogComponent } from '../edit-project-dialog/edit-project-dialog.component';
 
 
 
@@ -57,8 +59,31 @@ export class ProjectEffects {
     );
   });
 
+  updateProject$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(ProjectActions.updateProject),
+      concatMap(action =>
+        this.apiClient.updateProject(action.project).pipe(
+          map(data => ProjectActions.updateProjectSuccess({ data })),
+          catchError(error => of(ProjectActions.updateProjectFailure({ error }))))
+      )
+    );
+  });
+
+  updateProjectSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(ProjectActions.updateProjectSuccess),
+      map(action =>
+        ProjectActions.loadProjects()
+      ),
+      tap(() => this.modalService.dismissAll())
+    );
+  });
 
 
-  constructor(private actions$: Actions, private apiClient: ApiClientService) { }
+
+  constructor(private actions$: Actions, private apiClient: ApiClientService, private modalService: NgbModal) { }
 
 }

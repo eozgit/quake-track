@@ -3,12 +3,12 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { faEdit, faTrash, faColumns } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { loadProjects } from '../project/project.actions';
+import { loadProjects, editProject } from '../project/project.actions';
 import Project from '../models/project';
 import { State } from '../reducers';
 import { DeleteProjectDialogComponent } from '../delete-project-dialog/delete-project-dialog.component';
-import { EditProjectDialogComponent } from '../edit-project-dialog/edit-project-dialog.component';
 import { selectProjects } from '../project/project.selectors';
+import { EditProjectDialogComponent } from '../edit-project-dialog/edit-project-dialog.component';
 
 @Component({
   selector: 'app-projects-table',
@@ -34,7 +34,8 @@ export class ProjectsTableComponent implements OnInit {
     dialog.projectId = projectId;
   }
 
-  openEditModal(projectId: number) {
+  edit(projectId: number) {
+    this.store.dispatch(editProject({ projectId }));
     const modalRef = this.modalService.open(EditProjectDialogComponent);
     const dialog = modalRef.componentInstance as EditProjectDialogComponent;
     dialog.modalRef = modalRef;

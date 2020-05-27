@@ -7,4 +7,6 @@ export const selectProjectState = createFeatureSelector<fromProject.State>(
 
 export const selectProjects = createSelector(selectProjectState, project => project.projects);
 
-export const selectCurrentProject = createSelector(selectProjectState, project => project.currentProject);
+export const selectCurrentProjectId = createSelector(selectProjectState, project => project.currentProjectId);
+
+export const selectCurrentProject = createSelector(selectProjects, selectCurrentProjectId, (projects, id) => projects.find(p => p.id === id));
