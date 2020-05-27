@@ -5,7 +5,7 @@ import { take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { clone } from "lodash";
 import { State } from '../reducers';
-import { updateProject } from '../project/project.actions';
+import { updateProject, addUser } from '../project/project.actions';
 import { selectCurrentProject } from '../project/project.selectors';
 import Project from '../models/project';
 
@@ -25,6 +25,7 @@ export class EditProjectDialogComponent implements OnInit {
     users: [],
   };
   projectId: number;
+  email: string;
 
   constructor(private store: Store<State>) { }
 
@@ -34,8 +35,18 @@ export class EditProjectDialogComponent implements OnInit {
 
   save() {
     this.store.dispatch(updateProject({
-      project: this.project
+      project: {
+        ...this.project,
+        users: []
+      }
     }));
 
+  }
+
+  addUser() {
+    this.store.dispatch(addUser({
+      projectId: this.projectId,
+      email: this.email
+    }));
   }
 }

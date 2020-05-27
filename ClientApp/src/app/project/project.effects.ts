@@ -7,6 +7,7 @@ import * as ProjectActions from './project.actions';
 import { ApiClientService } from '../api-client.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditProjectDialogComponent } from '../edit-project-dialog/edit-project-dialog.component';
+import User from '../models/user';
 
 
 
@@ -79,6 +80,29 @@ export class ProjectEffects {
         ProjectActions.loadProjects()
       ),
       tap(() => this.modalService.dismissAll())
+    );
+  });
+
+  addUser$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(ProjectActions.addUser),
+      concatMap(action =>
+        this.apiClient.addUser(action.projectId, { email: action.email }).pipe(
+          map((data: User) => ProjectActions.addUserSuccess({ data })),
+          catchError(error => of(ProjectActions.addUserFailure({ error }))))
+      )
+    );
+  });
+
+  addUserSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(ProjectActions.addUserSuccess),
+      tap(action => action.data.email && alert(`${action.data.email}\nis added to the project\nas a contributor.`)),
+      map(action =>
+        ProjectActions.loadProjects()
+      ),
     );
   });
 

@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import Project from '../models/project';
+import User from '../models/user';
 
 export const loadProjects = createAction(
   '[Project] Load Projects'
@@ -62,5 +63,20 @@ export const updateProjectSuccess = createAction(
 
 export const updateProjectFailure = createAction(
   '[API Update Project] Failure',
+  props<{ error: any }>()
+);
+
+export const addUser = createAction(
+  '[Edit Project Dialog] Add User',
+  props<{ projectId: number, email: string }>()
+);
+
+export const addUserSuccess = createAction(
+  '[API Add User] Success',
+  props<{ data: User }>()
+);
+
+export const addUserFailure = createAction(
+  '[API Add User] Failure',
   props<{ error: any }>()
 );

@@ -17,6 +17,27 @@
                 <textarea class="form-control" id="description" name="description" [(ngModel)]="project.description"
                     rows="8" maxlength="300"></textarea>
             </div>
+            <div class="form-group">
+                <label for="users">Contributors</label>
+                <ul class="list-group">
+                    <li *ngIf="(project$ | async).users.length === 0" class="list-group-item">None</li>
+                    <li *ngFor="let user of (project$ | async).users" class="list-group-item">{{ user.email }}</li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label for="addUser">Add contributor</label>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-10">
+                            <input class="form-control" id="addUser" name="addUser" [(ngModel)]="email"
+                                placeholder="email">
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="btn btn-primary" (click)="addUser()">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
         <div class="modal-footer">

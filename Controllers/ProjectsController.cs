@@ -28,12 +28,12 @@ namespace QuakeTrack.Controllers
 
         [HttpGet]
         [Route("/api/projects")]
-        public virtual async Task<IActionResult> GetProjects([FromQuery] int limit = 10, [FromQuery] int skip = 0)
+        public virtual async Task<IActionResult> GetProjects()
         {
-            var query = db.Project.AsQueryable();
-            query = query.Skip(skip * limit);
-            query = query.Take(limit);
-            var projects = await query.Select(p => mapper.Map<ProjectViewModel>(p)).ToListAsync();
+            var projects = await db.Project
+                .Include(project => project.UserProjects)
+                    .ThenInclude(link => link.User)
+                .Select(project => mapper.Map<ProjectViewModel>(project)).ToListAsync();
             return new ObjectResult(projects);
         }
 
@@ -91,26 +91,34 @@ namespace QuakeTrack.Controllers
 
         [HttpPatch]
         [Route("/api/projects/{projectId}/users")]
-        public virtual async Task<IActionResult> AddUser([FromBody] ApplicationUser userInfo, [FromRoute][Required] int? projectId)
+        public virtual async Task<IActionResult> AddUser([FromBody] EmailViewModel email, [FromRoute][Required] int? projectId)
         {
             var project = await db.Project
                 .Include(project => project.UserProjects)
+                    .ThenInclude(link => link.User)
                 .SingleOrDefaultAsync(project => project.Id == projectId);
 
-            var user = await db.Users.Where(u => u.Email == userInfo.Email).SingleOrDefaultAsync();
-            if (user != null)
+            var user = await db.Users.Where(u => u.Email == email.Email).SingleOrDefaultAsync();
+
+            if (!project.UserProjects.Any(link => link.User.Email == email.Email))
             {
-                var link = new ApplicationUserProject
+
+                if (user != null)
                 {
-                    User = user,
-                    Project = project,
-                    Role = UserProjectRole.Contributor
-                };
-                project.UserProjects.Add(link);
-                await db.SaveChangesAsync();
+                    var link = new ApplicationUserProject
+                    {
+                        User = user,
+                        Project = project,
+                        Role = UserProjectRole.Contributor
+                    };
+                    project.UserProjects.Add(link);
+                    await db.SaveChangesAsync();
+                    return new ObjectResult(mapper.Map<UserViewModel>(user));
+                }
+
             }
 
-            return new ObjectResult(mapper.Map<UserViewModel>(user));
+            return new ObjectResult(mapper.Map<UserViewModel>(new UserViewModel()));
         }
 
         [HttpDelete]
