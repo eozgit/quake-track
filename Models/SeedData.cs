@@ -31,12 +31,7 @@ namespace QuakeTrack.Models
                             new Issue
                             {
                                 Summary = "Get supplies: Hardware",
-                                Description = Truncate(@"1. 1.5in/1.5in wood plank 100in
-2. 5in X 3/4in plank 8 feet long. Use recycled wood when possible.
-3. 6 2in screws.
-4. 2in nails x 20
-5. Dark stain small container.
-6. Inexpensive car carpet x1", 300),
+                                Description = "1. 1.5in/1.5in wood plank 100in\r\n2. 5in X 3/4in plank 8 feet long. Use recycled wood when possible.\r\n3. 6 2in screws.\r\n4. 2in nails x 20\r\n5. Dark stain small container.\r\n6. Inexpensive car carpet x1",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Done,
@@ -45,16 +40,7 @@ namespace QuakeTrack.Models
                             new Issue
                             {
                                 Summary = "Get supplies: Tools",
-                                Description = Truncate(@"1. Hammer
-2. Foam brushes x2
-3. Tape measure
-4. Hand saw.
-5. Table saw
-6. Drill
-7. Staple Gun
-8. Metal file or sand paper
-9. Utility knife
-10. Work gloves and safety glasses", 300),
+                                Description = "1. Hammer\r\n2. Foam brushes x2\r\n3. Tape measure\r\n4. Hand saw.\r\n5. Table saw\r\n6. Drill\r\n7. Staple Gun\r\n8. Metal file or sand paper\r\n9. Utility knife\r\n10. Work gloves and safety glasses",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Done,
@@ -63,10 +49,7 @@ namespace QuakeTrack.Models
                             new Issue
                             {
                                 Summary = "Marks for the First Cuts",
-                                Description = Truncate(@"Mark the 1.5in X 1.5in wood as such:
-20in x 4
-6in x2
-2in x 2", 300),
+                                Description = "Mark the 1.5in X 1.5in wood as such:\r\n20in x 4\r\n6in x2\r\n2in x 2",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Test,
@@ -75,7 +58,7 @@ namespace QuakeTrack.Models
                             new Issue
                             {
                                 Summary = "Saw the Planks and Sand the Edges",
-                                Description = Truncate(@"Use the metal file to take off the rough edges so you don't get a splinter", 300),
+                                Description = "Use the metal file to take off the rough edges so you don't get a splinter",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Test,
@@ -84,13 +67,7 @@ namespace QuakeTrack.Models
                             new Issue
                             {
                                 Summary = "Fix the Frame to the Platform",
-                                Description = Truncate(@"Place the 8in platform an on the workbench.
-Take the 2in and 6in pieces of 1.5 wood and make sure that they fit along with the legs.
-Hammer in nails to fix the frame pieces to the platform.
-Take a drill bit that is a little smaller than the screws and drill pilot holes (so the wood doesn't split).
-Put the drill bit in the drill and make sure it is tight, you don't want it to fall out.
-Drill the holes.
-Screw in the 20in legs so that they are fixed to the frame.", 300),
+                                Description = "Place the 8in platform an on the workbench.\r\nTake the 2in and 6in pieces of 1.5 wood and make sure that they fit along with the legs.\r\nHammer in nails to fix the frame pieces to the platform.\r\nTake a drill bit that is a little smaller than the screws and drill pilot holes (so the wood doesn't split)",
                                 IssueType = IssueType.Task,
                                 Storypoints = 3,
                                 Status = IssueStatus.Test,
@@ -99,8 +76,7 @@ Screw in the 20in legs so that they are fixed to the frame.", 300),
                             new Issue
                             {
                                 Summary = "Stabilize the Platform",
-                                Description = Truncate(@"Drill in the pilot holes and add the screws to each leg.
-This makes the platform stable.", 300),
+                                Description = "Drill in the pilot holes and add the screws to each leg.\r\nThis makes the platform stable.",
                                 IssueType = IssueType.Task,
                                 Storypoints = 5,
                                 Status = IssueStatus.Develop,
@@ -109,8 +85,7 @@ This makes the platform stable.", 300),
                             new Issue
                             {
                                 Summary = "Add the Ramp to the Platform",
-                                Description = Truncate(@"Lay the plank on the lip and use a cinder block (or something heavy) to keep it in place.
-Drill the pilot holes at an angle into the frame and then use the 2 inch screws x4", 300),
+                                Description = "Lay the plank on the lip and use a cinder block (or something heavy) to keep it in place.\r\nDrill the pilot holes at an angle into the frame and then use the 2 inch screws x4",
                                 IssueType = IssueType.Task,
                                 Storypoints = 3,
                                 Status = IssueStatus.Develop,
@@ -119,7 +94,7 @@ Drill the pilot holes at an angle into the frame and then use the 2 inch screws 
                             new Issue
                             {
                                 Summary = "Cut the Carpet So That It Fits on the The Platform and Ramp",
-                                Description = Truncate(@"Measure out 5.5in pieces. Using your utility knife, cut the carpet in pieces to completely cover the top of the ramp and platform", 300),
+                                Description = "Measure out 5.5in pieces. Using your utility knife, cut the carpet in pieces to completely cover the top of the ramp and platform",
                                 IssueType = IssueType.Task,
                                 Storypoints = 3,
                                 Status = IssueStatus.Develop,
@@ -128,8 +103,7 @@ Drill the pilot holes at an angle into the frame and then use the 2 inch screws 
                             new Issue
                             {
                                 Summary = "Staple the Carpet to the Ramp",
-                                Description = Truncate(@"Carefully align the cut carpet to the ramp.
-Using your staple gun, staple in several places so that the carpet doesn't come up.", 300),
+                                Description = "Carefully align the cut carpet to the ramp.\r\nUsing your staple gun, staple in several places so that the carpet doesn't come up.",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.New,
@@ -138,10 +112,7 @@ Using your staple gun, staple in several places so that the carpet doesn't come 
                             new Issue
                             {
                                 Summary = "Apply the Stain Onto the Ramp",
-                                Description = Truncate(@"Lay down a tarp.
-Open the stain and be careful not to spill!
-Use the foam brushes and use even strokes on the wood until entirely coated.
-Apply more coats if needed and let sit over night.", 300),
+                                Description = "Lay down a tarp.\r\nOpen the stain and be careful not to spill!\r\nUse the foam brushes and use even strokes on the wood until entirely coated.\r\nApply more coats if needed and let sit over night.",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.New,
@@ -157,9 +128,7 @@ Apply more coats if needed and let sit over night.", 300),
                             new Issue
                             {
                                 Summary = "Get supplies",
-                                Description = Truncate(@"Fat quarter of 100% cotton or other tightly woven material - the tighter the better
-sewing machine
-iron", 300),
+                                Description = "Fat quarter of 100% cotton or other tightly woven material - the tighter the better\r\nsewing machine\r\niron",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Done,
@@ -168,10 +137,7 @@ iron", 300),
                             new Issue
                             {
                                 Summary = "Print the Pattern",
-                                Description = Truncate(@"https://drive.google.com/file/d/15IdBNXP8YYPPIz9EMEf35XM0HEJWUYxH/view
-Cut out pattern. Cut along straight black lines and dotted black line.
-Choose your fabric - at least 21in x 18in (Fat Quarter). Iron out wrinkles.
-*I have updated the pattern print out to clarify dimensions of the cutout pattern. I have also included a screen shot of the print settings I used so pattern was true to size. Thank you!", 300),
+                                Description = "https://drive.google.com/file/d/15IdBNXP8YYPPIz9EMEf35XM0HEJWUYxH/view\r\nCut out pattern. Cut along straight black lines and dotted black line.\r\nChoose your fabric - at least 21in x 18in (Fat Quarter). Iron out wrinkles.",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Done,
@@ -180,7 +146,7 @@ Choose your fabric - at least 21in x 18in (Fat Quarter). Iron out wrinkles.
                             new Issue
                             {
                                 Summary = "Fold Fabric",
-                                Description = Truncate(@"Fold fabric right-side out with selvage edge touching - taco style. Square fabric.", 300),
+                                Description = "Fold fabric right-side out with selvage edge touching - taco style. Square fabric.",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Test,
@@ -189,8 +155,7 @@ Choose your fabric - at least 21in x 18in (Fat Quarter). Iron out wrinkles.
                             new Issue
                             {
                                 Summary = "Cut Binding and Ties",
-                                Description = Truncate(@"Cut 5 x 1.5 inch wide strips from the width of fabric. Each strip should be around 20"" in length.The strips above were cut with the fabric folded in half.
-Or, if you are cutting out of longer fabric you could cut 2 (1.5"" wide x 40"" long) and 1 (1.5"" wide x 20"" long) and save yourself a step piecing the binding together.", 300),
+                                Description = "Cut 5 x 1.5 inch wide strips from the width of fabric. Each strip should be around 20\" in length.The strips above were cut with the fabric folded in half.\r\nOr, if you are cutting out of longer fabric you could cut 2 (1.5\" wide x 40\" long) and 1 (1.5\" wide x 20\" long) and save yourself a step piecing",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Test,
@@ -199,8 +164,7 @@ Or, if you are cutting out of longer fabric you could cut 2 (1.5"" wide x 40"" l
                             new Issue
                             {
                                 Summary = "Refold Fabric and Cut Mask Face",
-                                Description = Truncate(@"Open up and refold leftover fabric. Fold width-wise - burrito style. So selvage on top, selvage on bottom - fold evenly. Pin pattern on upper half of folded fabric. Dotted line of pattern aligned with fold. Cut around edges of pattern. Cut out notches.
-Unpin pattern and move to lower half of folded fabric. Cut out second piece.", 300),
+                                Description = "Open up and refold leftover fabric. Fold width-wise - burrito style. So selvage on top, selvage on bottom - fold evenly. Pin pattern on upper half of folded fabric. Dotted line of pattern aligned with fold. Cut around edges of pattern. Cut out notches.\r\nUnpin pattern and move to lower half of folded",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Test,
@@ -209,8 +173,7 @@ Unpin pattern and move to lower half of folded fabric. Cut out second piece.", 3
                             new Issue
                             {
                                 Summary = "Stack and Sew",
-                                Description = Truncate(@"Stack the 2 face mask pieces, face down. Pin in place.
-Sew together using 1/2"" seam around all four sides.", 300),
+                                Description = "Stack the 2 face mask pieces, face down. Pin in place.\r\nSew together using 1/2\" seam around all four sides.",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Develop,
@@ -219,11 +182,7 @@ Sew together using 1/2"" seam around all four sides.", 300),
                             new Issue
                             {
                                 Summary = "Iron in Pleats",
-                                Description = Truncate(@"With pointed pointing away from you, front of fabric side down, bring bottom side of fabric up and over top side. The fold should be the imaginary line between the top notch on left to top notch on right. Press crease with hot iron. The pleats are 1/4 inch.
-Next, fold fabric back down. The fold should be imaginary line between 2nd notch on left and 2nd notch on right. Press crease with hot iron.
-Repeat for 3rd and 4th notches.
-Repeat of 5th and 6th notches.
-Once the pleats are ironed in the edges of the mask should measure 3"" - give or take.", 300),
+                                Description = "With pointed pointing away from you, front of fabric side down, bring bottom side of fabric up and over top side. The fold should be the imaginary line between the top notch on left to top notch on right. Press crease with hot iron. The pleats are 1/4 inch.\r\nNext, fold fabric back down.",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.New,
@@ -232,7 +191,7 @@ Once the pleats are ironed in the edges of the mask should measure 3"" - give or
                             new Issue
                             {
                                 Summary = "Sew Pleats in Place",
-                                Description = Truncate(@"Sew pleats into place using a 1/2"" seam. Both Left and Right side of mask face.", 300),
+                                Description = "Sew pleats into place using a 1/2\" seam. Both Left and Right side of mask face.",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.New,
@@ -241,9 +200,7 @@ Once the pleats are ironed in the edges of the mask should measure 3"" - give or
                             new Issue
                             {
                                 Summary = "Mark and Sew Darts",
-                                Description = Truncate(@"Fold mask face in half at the center fold. Front side of fabric together, wrong side of fabric facing you.
-Align pattern and mark top and bottom darts with pin or pencil.
-Sew along line. - I went over it twice for good measure.", 300),
+                                Description = "Fold mask face in half at the center fold. Front side of fabric together, wrong side of fabric facing you.\r\nAlign pattern and mark top and bottom darts with pin or pencil.\r\nSew along line. - I went over it twice for good measure.",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.New,
@@ -252,7 +209,7 @@ Sew along line. - I went over it twice for good measure.", 300),
                             new Issue
                             {
                                 Summary = "Trim Excess",
-                                Description = Truncate(@"Trim seams to 1/4 inch.", 300),
+                                Description = "Trim seams to 1/4 inch.",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.New,
@@ -261,9 +218,7 @@ Sew along line. - I went over it twice for good measure.", 300),
                             new Issue
                             {
                                 Summary = "Prepare the Binding",
-                                Description = Truncate(@"Take 2 strips and pin at 90 deg angles. Repeat with 2 more strips.
-Sew strips together at 45 deg angle. Trim seams at 1/4 inch and press with iron.
-Take 5th strip and cut in half.", 300),
+                                Description = "Take 2 strips and pin at 90 deg angles. Repeat with 2 more strips.\r\nSew strips together at 45 deg angle. Trim seams at 1/4 inch and press with iron.\r\nTake 5th strip and cut in half.",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.New,
@@ -272,9 +227,7 @@ Take 5th strip and cut in half.", 300),
                             new Issue
                             {
                                 Summary = "Attach Side Binding",
-                                Description = Truncate(@"With mask facing down - front side of fabric facing away, wrong side of fabric facing towards you - pin 1.5"" binding you cut in half to left and right side of mask. Binding should be face down. Edge of binding aligned with outermost edge of mask.
-Sew in place, starting just above top of mask and stopping just below bottom of mask, using 1/4 inch seam.
-Press seam open with iron.", 300),
+                                Description = "With mask facing down - front side of fabric facing away, wrong side of fabric facing towards you - pin 1.5\" binding you cut in half to left and right side of mask. Binding should be face down. Edge of binding aligned with outermost edge of mask.\r\nSew in place, starting just above top of mask...",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.New,
@@ -283,12 +236,7 @@ Press seam open with iron.", 300),
                             new Issue
                             {
                                 Summary = "Finish Side Binding",
-                                Description = Truncate(@"Flip mask over. Right side of fabric facing you.
-Fold 1/4 inch seam towards you from outside edge of binding. Wrap folded edge around side edge of mask.
-Pin in place.
-Sew along edge of binding.
-Repeat on other side.
-Trim excess.", 300),
+                                Description = "Flip mask over. Right side of fabric facing you.\r\nFold 1/4 inch seam towards you from outside edge of binding. Wrap folded edge around side edge of mask.\r\nPin in place.\r\nSew along edge of binding.\r\nRepeat on other side.\r\nTrim excess.",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.New,
@@ -297,9 +245,7 @@ Trim excess.", 300),
                             new Issue
                             {
                                 Summary = "Attach Top/Bottom Binding",
-                                Description = Truncate(@"With mask face, wrong side of fabric facing you, pin 1.5 inch binding strips along top and bottom edges.
-Sew in place using 1/4 inch seams. Start sewing just above one side of mask face and end just after opposite side of mask face.
-Press open with iron.", 300),
+                                Description = "With mask face, wrong side of fabric facing you, pin 1.5 inch binding strips along top and bottom edges.\r\nSew in place using 1/4 inch seams. Start sewing just above one side of mask face and end just after opposite side of mask face.\r\nPress open with iron.",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.New,
@@ -308,11 +254,7 @@ Press open with iron.", 300),
                             new Issue
                             {
                                 Summary = "Finish Top/Bottom Binding and Ties",
-                                Description = Truncate(@"Trim ties even on both sides of mask.
-Iron in 1/4 inch seam on top and bottom of mask ties.
-Iron in 1/4 inch seam on end of mask ties.
-Fold ties in half and pin in place.
-Sew Binding and Ties.", 300),
+                                Description = "Trim ties even on both sides of mask.\r\nIron in 1/4 inch seam on top and bottom of mask ties.\r\nIron in 1/4 inch seam on end of mask ties.\r\nFold ties in half and pin in place.\r\nSew Binding and Ties.",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.New,
@@ -328,25 +270,7 @@ Sew Binding and Ties.", 300),
                             new Issue
                             {
                                 Summary = "Get Tools and Ingredients",
-                                Description = Truncate(@"Here is a list of supplies you will need to cook your steak.
-
-Tools
-
-A Stove
-One frying pan suitable for the size of your steak
-Tongs
-a knife
-a plate
-A clock or timer
-
-Ingredients
-
-One steak
-Olive oil
-Butter
-Salt
-Pepper
-Fresh Garlic (or Garlic Powder)", 300),
+                                Description = "Here is a list of supplies you will need to cook your steak.\r\n\r\nTools\r\n\r\nA Stove\r\nOne frying pan suitable for the size of your steak\r\nTongs\r\na knife\r\na plate\r\nA clock or timer\r\n\r\nIngredients\r\n\r\nOne steak\r\nOlive oil\r\nButter\r\nSalt\r\nPepper\r\nFresh Garlic (or Garlic Powder)",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Done,
@@ -355,9 +279,7 @@ Fresh Garlic (or Garlic Powder)", 300),
                             new Issue
                             {
                                 Summary = "Shop for a Steak",
-                                Description = Truncate(@"The first step is to locate the steak that you wish to cook. I always buy my steak at Tacoma Boys. They have a quality meat selection. It is a bit more expensive, but in my opinion, it is worth it.
-The steak I chose was a 8oz Kobe Petite Sirloin steak. It is small enough for one person and a relatively inexpensive cut of meat. Find a steak that looks tasty to you! If you have the money for a nice New York Steak go for it, but for this tutorial we will be working with a petite sirloin steak.
-While you are at the store, make sure you have the rest of your ingredients such as olive oil, butter, salt, pepper, and garlic. A grocery store is a perfect opportunity to pick up some fresh garlic if you prefer that to garlic powder.", 300),
+                                Description = "The first step is to locate the steak that you wish to cook. I always buy my steak at Tacoma Boys. They have a quality meat selection. It is a bit more expensive, but in my opinion, it is worth it.\r\nThe steak I chose was a 8oz Kobe Petite Sirloin steak.",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Done,
@@ -366,10 +288,7 @@ While you are at the store, make sure you have the rest of your ingredients such
                             new Issue
                             {
                                 Summary = "Prepare the Meat",
-                                Description = Truncate(@"When you get home you must get the meat out and let it warm up. When it is sitting in the grocery store, it is very cold and you do not want to cook a cold steak.
-First pull the steak out of the butcher paper and let it rest on a plate. While it is sitting, use the salt and pepper to season it. Cover all sides with a good amount of seasoning.
-Usually give the steak about 20 minutes to warm up. It is important to let the meat warm because when you cook it in the pan it will cook more evenly. You do not want a cold center.
-While the steak is warming up, this is a good time to get the rest of your tools and ingredients ready. Place the pan on a burner and put it on high heat. Before heating, poor enough olive oil in the pan to coat the entire bottom. You want plenty of oil in the pan for the next step of the process.", 300),
+                                Description = "When you get home you must get the meat out and let it warm up. When it is sitting in the grocery store, it is very cold and you do not want to cook a cold steak.\r\nFirst pull the steak out of the butcher paper and let it rest on a plate. While it is sitting, use the salt and pepper to season it.",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Test,
@@ -378,11 +297,7 @@ While the steak is warming up, this is a good time to get the rest of your tools
                             new Issue
                             {
                                 Summary = "Seer the Steak",
-                                Description = Truncate(@"This next step is very crucial and can be dangerous. At this point, the pan should be very hot. You will use the tongs to place the steak into the hot oil. At these high temperatures there will be a lot of oil splatter so be careful when maneuvering the steak around in the pan.
-When you place the steak in the pan begin timing the cooking for 1 Minute.
-After a Minute has passed, flip it to the other side for 1 Minute.
-After that minute has passed, flip the steak on its side and sear the edge until it is colored like the rest of the meat. do this for both sides. Tilt the pan so that the oil and juices run down to one side and use that to cook the edge of the steak. Refer to the photo for an example.
-You will continuously be turning the steak for 1 Minute intervals until you feel that it is well done enough. This is all dependent on your wellness preference and the thickness of your steak. This will bring us to our next step.", 300),
+                                Description = "This next step is very crucial and can be dangerous. At this point, the pan should be very hot. You will use the tongs to place the steak into the hot oil. At these high temperatures there will be a lot of oil splatter so be careful when maneuvering the steak around in the pan.",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Test,
@@ -391,12 +306,7 @@ You will continuously be turning the steak for 1 Minute intervals until you feel
                             new Issue
                             {
                                 Summary = "Cook the Steak",
-                                Description = Truncate(@"At this point, the steak has been seared on all sides, locking in the juices of the meat. Turn down the heat of your stove to medium.
-Now comes the process of cooking through the meat to your preferred wellness. There is no exact science to this because of the variables of thickness and stove heat so you will just have to check the meat often to make sure it is not over or under cooked. For this demonstration, I cooked my steak to a medium wellness with some pink left in the middle.
-Now that the heat is backed off, continue cooking the steak on each side for 1 Minute intervals.
-Now it is time to add the garlic and butter. Cut off a nice healthy chunk of butter and throw it in the pan along with a generous amount of garlic. I used garlic powder because I didn't have any fresh garlic at the time. Allow the meat to soak in the greasy tasty goodness as you continue turning it. Keep in mind this is how to make the Perfect Steak, not a healthy steak.
-I cooked my steak for 8 total minutes, flipping each minute, to get a medium wellness. Again, I have to be clear that variables in steak size and stove heat means that this may not give you the same result. Use the tongs to check the firmness of the meat. If it feels like it is beginning to firm up, then it is probably reaching a medium wellness.
-After you have cooked it long enough, it is time to pull it from a pan and place it on a clean plate.", 300),
+                                Description = "At this point, the steak has been seared on all sides, locking in the juices of the meat. Turn down the heat of your stove to medium.\r\nNow comes the process of cooking through the meat to your preferred wellness. There is no exact science to this because of the variables of thickness and stove heat",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Test,
@@ -405,9 +315,7 @@ After you have cooked it long enough, it is time to pull it from a pan and place
                             new Issue
                             {
                                 Summary = "Rest the Meat",
-                                Description = Truncate(@"You have finished cooking the steak and are about to devour it but RESIST!
-You must let the meat rest before cutting into it. The process known as resting, allows for all of the juices of the meat to lock inside the steak. This gives your steak better flavor.
-Allow the steak to rest for 5 minutes. If you become impatient, find a beer of your choice (if you are of age), and have a drink!", 300),
+                                Description = "You have finished cooking the steak and are about to devour it but RESIST!\r\nYou must let the meat rest before cutting into it. The process known as resting, allows for all of the juices of the meat to lock inside the steak. This gives your steak better flavor.\r\nAllow the steak to rest for 5 minutes.",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Develop,
@@ -416,9 +324,7 @@ Allow the steak to rest for 5 minutes. If you become impatient, find a beer of y
                             new Issue
                             {
                                 Summary = "Eat and Enjoy",
-                                Description = Truncate(@"You have been patient. You have waited five minutes. You are now ready to consume your amazing, and surprisingly inexpensive steak!
-This steak requires no sauces. Sauce would only ruin the great flavors that you have created today in your pan.
-Steamed vegetables and a cold beer also work as great sides to your meat masterpiece. Enjoy!", 300),
+                                Description = "You have been patient. You have waited five minutes. You are now ready to consume your amazing, and surprisingly inexpensive steak!\r\nThis steak requires no sauces. Sauce would only ruin the great flavors that you have created today in your pan.\r\nSteamed vegetables and a cold beer also work as great ",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.New,
@@ -429,12 +335,6 @@ Steamed vegetables and a cold beer also work as great sides to your meat masterp
                 );
                 context.SaveChanges();
             }
-        }
-
-        private static string Truncate(string value, int maxLength)
-        {
-            if (string.IsNullOrEmpty(value)) return value;
-            return value.Length <= maxLength ? value : value.Substring(0, maxLength);
         }
     }
 }
