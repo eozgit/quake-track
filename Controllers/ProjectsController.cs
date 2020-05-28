@@ -1,5 +1,4 @@
 using System;
-using System.IdentityModel;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using System.Linq;
@@ -71,11 +70,10 @@ namespace QuakeTrack.Controllers
         {
             var project = await db.Project
                 .Include(project => project.UserProjects)
-                    .ThenInclude(link => link.User)
                 .SingleOrDefaultAsync(project => project.Id == projectId);
 
             var userId = UserId();
-            if (!project.UserProjects.Any(link => link.User.Id == userId)) return Forbid();
+            if (!project.UserProjects.Any(link => link.UserId == userId && link.Role == UserProjectRole.Owner)) return Forbid();
 
             project.IsDeleted = true;
             await db.SaveChangesAsync();
@@ -88,11 +86,10 @@ namespace QuakeTrack.Controllers
         {
             var project = await db.Project
                 .Include(project => project.UserProjects)
-                    .ThenInclude(link => link.User)
                 .SingleOrDefaultAsync(project => project.Id == projectId);
 
             var userId = UserId();
-            if (!project.UserProjects.Any(link => link.User.Id == userId)) return Forbid();
+            if (!project.UserProjects.Any(link => link.UserId == userId && link.Role == UserProjectRole.Owner)) return Forbid();
 
             project.Name = patch.Name;
             project.Description = patch.Description;
@@ -111,7 +108,7 @@ namespace QuakeTrack.Controllers
                 .SingleOrDefaultAsync(project => project.Id == projectId);
 
             var userId = UserId();
-            if (!project.UserProjects.Any(link => link.User.Id == userId)) return Forbid();
+            if (!project.UserProjects.Any(link => link.UserId == userId)) return Forbid();
 
             var users = project.UserProjects
                 .Select(link => link.User);
@@ -129,7 +126,7 @@ namespace QuakeTrack.Controllers
                 .SingleOrDefaultAsync(project => project.Id == projectId);
 
             var userId = UserId();
-            if (!project.UserProjects.Any(link => link.User.Id == userId)) return Forbid();
+            if (!project.UserProjects.Any(link => link.UserId == userId && link.Role == UserProjectRole.Owner)) return Forbid();
 
             var user = await db.Users.Where(u => u.Email == email.Email).SingleOrDefaultAsync();
 
@@ -164,7 +161,7 @@ namespace QuakeTrack.Controllers
                 .SingleOrDefaultAsync(project => project.Id == projectId);
 
             var currentUserId = UserId();
-            if (!project.UserProjects.Any(link => link.User.Id == currentUserId)) return Forbid();
+            if (!project.UserProjects.Any(link => link.UserId == currentUserId && link.Role == UserProjectRole.Owner)) return Forbid();
 
             var user = project.UserProjects.SingleOrDefault(link => link.User.Id == userId);
             if (user != null)
@@ -182,11 +179,10 @@ namespace QuakeTrack.Controllers
         {
             var project = await db.Project
                 .Include(project => project.UserProjects)
-                    .ThenInclude(link => link.User)
                 .SingleOrDefaultAsync(project => project.Id == projectId);
 
             var userId = UserId();
-            if (!project.UserProjects.Any(link => link.User.Id == userId)) return Forbid();
+            if (!project.UserProjects.Any(link => link.UserId == userId)) return Forbid();
 
             var issues = project.Issues.Select(issue => mapper.Map<IssueViewModel>(issue));
             return new ObjectResult(issues);
@@ -199,11 +195,10 @@ namespace QuakeTrack.Controllers
             var project = await db.Project
                 .Include(project => project.Issues)
                 .Include(project => project.UserProjects)
-                    .ThenInclude(link => link.User)
                 .SingleOrDefaultAsync(project => project.Id == projectId);
 
             var userId = UserId();
-            if (!project.UserProjects.Any(link => link.User.Id == userId)) return Forbid();
+            if (!project.UserProjects.Any(link => link.UserId == userId)) return Forbid();
 
             var model = mapper.Map<Issue>(issue);
 
@@ -219,11 +214,10 @@ namespace QuakeTrack.Controllers
             var project = await db.Project
                 .Include(project => project.Issues)
                 .Include(project => project.UserProjects)
-                    .ThenInclude(link => link.User)
                 .SingleOrDefaultAsync(project => project.Id == projectId);
 
             var userId = UserId();
-            if (!project.UserProjects.Any(link => link.User.Id == userId)) return Forbid();
+            if (!project.UserProjects.Any(link => link.UserId == userId)) return Forbid();
 
             var issue = project.Issues.SingleOrDefault(i => i.Id == issueId);
             return new ObjectResult(mapper.Map<IssueViewModel>(issue));
@@ -236,11 +230,10 @@ namespace QuakeTrack.Controllers
             var project = await db.Project
                 .Include(project => project.Issues)
                 .Include(project => project.UserProjects)
-                    .ThenInclude(link => link.User)
                 .SingleOrDefaultAsync(project => project.Id == projectId);
 
             var userId = UserId();
-            if (!project.UserProjects.Any(link => link.User.Id == userId)) return Forbid();
+            if (!project.UserProjects.Any(link => link.UserId == userId)) return Forbid();
 
             var model = mapper.Map<Issue>(patch);
 
@@ -266,11 +259,10 @@ namespace QuakeTrack.Controllers
             var project = await db.Project
                 .Include(project => project.Issues)
                 .Include(project => project.UserProjects)
-                    .ThenInclude(link => link.User)
                 .SingleOrDefaultAsync(project => project.Id == projectId);
 
             var userId = UserId();
-            if (!project.UserProjects.Any(link => link.User.Id == userId)) return Forbid();
+            if (!project.UserProjects.Any(link => link.UserId == userId)) return Forbid();
 
             var issue = project.Issues.SingleOrDefault(i => i.Id == issueId);
             if (issue != null)
