@@ -41,9 +41,16 @@ namespace QuakeTrack.Controllers
         [Route("/api/projects")]
         public virtual async Task<IActionResult> CreateProject([FromBody] ProjectViewModel project)
         {
-            db.Project.Add(mapper.Map<Project>(project));
-            await db.SaveChangesAsync();
-            return StatusCode(201);
+            if (db.Project.Any(existing => existing.Name == project.Name))
+            {
+                return BadRequest();
+            }
+            else
+            {
+                db.Project.Add(mapper.Map<Project>(project));
+                await db.SaveChangesAsync();
+                return StatusCode(201);
+            }
         }
 
         [HttpGet]

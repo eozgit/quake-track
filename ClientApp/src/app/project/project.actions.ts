@@ -16,6 +16,7 @@ export const loadProjectsFailure = createAction(
   props<{ error: any }>()
 );
 
+
 export const deleteProject = createAction(
   '[Delete Project Dialog] Delete Project',
   props<{ projectId: number }>()
@@ -31,6 +32,7 @@ export const deleteProjectFailure = createAction(
   props<{ error: any }>()
 );
 
+
 export const getProject = createAction(
   '[Edit Project Dialog] Get Project',
   props<{ projectId: number }>()
@@ -45,6 +47,7 @@ export const getProjectFailure = createAction(
   '[API Get Project] Failure',
   props<{ error: any }>()
 );
+
 
 export const editProject = createAction(
   '[Project Table] Edit Project',
@@ -66,6 +69,7 @@ export const updateProjectFailure = createAction(
   props<{ error: any }>()
 );
 
+
 export const addUser = createAction(
   '[Edit Project Dialog] Add User',
   props<{ projectId: number, email: string }>()
@@ -81,6 +85,7 @@ export const addUserFailure = createAction(
   props<{ error: any }>()
 );
 
+
 export const removeUser = createAction(
   '[Edit Project Dialog] Remove User',
   props<{ projectId: number, userId: string }>()
@@ -93,5 +98,21 @@ export const removeUserSuccess = createAction(
 
 export const removeUserFailure = createAction(
   '[API Remove User] Failure',
+  props<{ error: any }>()
+);
+
+
+export const createProject = createAction(
+  '[Projects Page] Create Project',
+  props<{ name: string }>()
+);
+
+export const createProjectSuccess = createAction(
+  '[API Create Project] Success',
+  props<{ data: any }>()
+);
+
+export const createProjectFailure = createAction(
+  '[API Create Project] Failure',
   props<{ error: any }>()
 );

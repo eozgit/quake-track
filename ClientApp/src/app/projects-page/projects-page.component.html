@@ -1,1 +1,19 @@
 <app-projects-table></app-projects-table>
+
+<div class="form-group">
+    <label for="createProject">Create Project</label>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-10">
+                <input class="form-control" id="createProject" name="createProject" [(ngModel)]="projectName"
+                    placeholder="Project Name">
+            </div>
+            <div class="col-2">
+                <fa-icon [icon]="faPlusCircle" size="lg" class="button align-middle text-center"
+                    (click)="createProject()">
+                </fa-icon>
+            </div>
+        </div>
+    </div>
+</div>

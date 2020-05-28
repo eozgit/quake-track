@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap, tap, throttle } from 'rxjs/operators';
-import { of, interval } from 'rxjs';
+import { catchError, map, concatMap, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 import * as ProjectActions from './project.actions';
 import { ApiClientService } from '../api-client.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { EditProjectDialogComponent } from '../edit-project-dialog/edit-project-dialog.component';
 import User from '../models/user';
 
 
@@ -25,6 +24,7 @@ export class ProjectEffects {
       )
     );
   });
+
 
   deleteProject$ = createEffect(() => {
     return this.actions$.pipe(
@@ -48,6 +48,7 @@ export class ProjectEffects {
     );
   });
 
+
   getProject$ = createEffect(() => {
     return this.actions$.pipe(
 
@@ -59,6 +60,7 @@ export class ProjectEffects {
       )
     );
   });
+
 
   updateProject$ = createEffect(() => {
     return this.actions$.pipe(
@@ -83,6 +85,7 @@ export class ProjectEffects {
     );
   });
 
+
   addUser$ = createEffect(() => {
     return this.actions$.pipe(
 
@@ -105,6 +108,7 @@ export class ProjectEffects {
     );
   });
 
+
   removeUser$ = createEffect(() => {
     return this.actions$.pipe(
 
@@ -121,6 +125,29 @@ export class ProjectEffects {
     return this.actions$.pipe(
 
       ofType(ProjectActions.removeUserSuccess),
+      map(action =>
+        ProjectActions.loadProjects()
+      ),
+    );
+  });
+
+
+  createProject$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(ProjectActions.createProject),
+      concatMap(action =>
+        this.apiClient.createProject(action.name).pipe(
+          map((data) => ProjectActions.createProjectSuccess({ data })),
+          catchError(error => of(ProjectActions.createProjectFailure({ error }))))
+      )
+    );
+  });
+
+  createProjectSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(ProjectActions.createProjectSuccess),
       map(action =>
         ProjectActions.loadProjects()
       ),

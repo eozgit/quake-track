@@ -33,4 +33,8 @@ export class ApiClientService {
   removeUser(projectId: number, userId: string) {
     return this.http.delete(`/api/projects/${projectId}/users/${userId}`);
   }
+
+  createProject(name: string) {
+    return this.http.post('/api/projects', { name });
+  }
 }
