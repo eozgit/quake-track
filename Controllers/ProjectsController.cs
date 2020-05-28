@@ -1,7 +1,10 @@
 using System;
+using System.IdentityModel;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
@@ -19,11 +22,13 @@ namespace QuakeTrack.Controllers
     {
         private ApplicationDbContext db;
         private IMapper mapper;
+        private IHttpContextAccessor httpContextAccessor;
 
-        public ProjectsController(ApplicationDbContext _db, IMapper _mapper)
+        public ProjectsController(ApplicationDbContext _db, IMapper _mapper, IHttpContextAccessor _httpContextAccessor)
         {
             db = _db;
             mapper = _mapper;
+            httpContextAccessor = _httpContextAccessor;
         }
 
         [HttpGet]
@@ -64,7 +69,14 @@ namespace QuakeTrack.Controllers
         [Route("/api/projects/{projectId}")]
         public virtual async Task<IActionResult> DeleteProject([FromRoute][Required] int? projectId)
         {
-            var project = db.Project.Find(projectId);
+            var project = await db.Project
+                .Include(project => project.UserProjects)
+                    .ThenInclude(link => link.User)
+                .SingleOrDefaultAsync(project => project.Id == projectId);
+
+            var userId = UserId();
+            if (!project.UserProjects.Any(link => link.User.Id == userId)) return Forbid();
+
             project.IsDeleted = true;
             await db.SaveChangesAsync();
             return new ObjectResult(mapper.Map<ProjectViewModel>(project));
@@ -74,7 +86,13 @@ namespace QuakeTrack.Controllers
         [Route("/api/projects/{projectId}")]
         public virtual async Task<IActionResult> UpdateProject([FromBody] ProjectViewModel patch, [FromRoute][Required] int? projectId)
         {
-            var project = await db.Project.FindAsync(projectId);
+            var project = await db.Project
+                .Include(project => project.UserProjects)
+                    .ThenInclude(link => link.User)
+                .SingleOrDefaultAsync(project => project.Id == projectId);
+
+            var userId = UserId();
+            if (!project.UserProjects.Any(link => link.User.Id == userId)) return Forbid();
 
             project.Name = patch.Name;
             project.Description = patch.Description;
@@ -88,11 +106,16 @@ namespace QuakeTrack.Controllers
         public virtual async Task<IActionResult> GetUsers([FromRoute][Required] int? projectId)
         {
             var project = await db.Project
-                .Include(p => p.UserProjects)
+                .Include(project => project.UserProjects)
                     .ThenInclude(link => link.User)
-                .SingleOrDefaultAsync(p => p.Id == projectId);
+                .SingleOrDefaultAsync(project => project.Id == projectId);
+
+            var userId = UserId();
+            if (!project.UserProjects.Any(link => link.User.Id == userId)) return Forbid();
+
             var users = project.UserProjects
                 .Select(link => link.User);
+
             return new ObjectResult(users.Select(user => mapper.Map<UserViewModel>(user)));
         }
 
@@ -104,6 +127,9 @@ namespace QuakeTrack.Controllers
                 .Include(project => project.UserProjects)
                     .ThenInclude(link => link.User)
                 .SingleOrDefaultAsync(project => project.Id == projectId);
+
+            var userId = UserId();
+            if (!project.UserProjects.Any(link => link.User.Id == userId)) return Forbid();
 
             var user = await db.Users.Where(u => u.Email == email.Email).SingleOrDefaultAsync();
 
@@ -133,9 +159,12 @@ namespace QuakeTrack.Controllers
         public virtual async Task<IActionResult> RemoveUser([FromRoute][Required] int? projectId, [FromRoute][Required] string userId)
         {
             var project = await db.Project
-                .Include(p => p.UserProjects)
+                .Include(project => project.UserProjects)
                     .ThenInclude(link => link.User)
-                .SingleOrDefaultAsync(p => p.Id == projectId);
+                .SingleOrDefaultAsync(project => project.Id == projectId);
+
+            var currentUserId = UserId();
+            if (!project.UserProjects.Any(link => link.User.Id == currentUserId)) return Forbid();
 
             var user = project.UserProjects.SingleOrDefault(link => link.User.Id == userId);
             if (user != null)
@@ -152,8 +181,13 @@ namespace QuakeTrack.Controllers
         public virtual async Task<IActionResult> GetIssues([FromRoute][Required] int? projectId)
         {
             var project = await db.Project
-                .Include(p => p.Issues)
-                .SingleOrDefaultAsync(p => p.Id == projectId);
+                .Include(project => project.UserProjects)
+                    .ThenInclude(link => link.User)
+                .SingleOrDefaultAsync(project => project.Id == projectId);
+
+            var userId = UserId();
+            if (!project.UserProjects.Any(link => link.User.Id == userId)) return Forbid();
+
             var issues = project.Issues.Select(issue => mapper.Map<IssueViewModel>(issue));
             return new ObjectResult(issues);
         }
@@ -162,10 +196,17 @@ namespace QuakeTrack.Controllers
         [Route("/api/projects/{projectId}/issues")]
         public virtual async Task<IActionResult> CreateIssue([FromBody] IssueViewModel issue, [FromRoute][Required] int? projectId)
         {
-            var model = mapper.Map<Issue>(issue);
             var project = await db.Project
-                .Include(p => p.Issues)
-                .SingleOrDefaultAsync(p => p.Id == projectId);
+                .Include(project => project.Issues)
+                .Include(project => project.UserProjects)
+                    .ThenInclude(link => link.User)
+                .SingleOrDefaultAsync(project => project.Id == projectId);
+
+            var userId = UserId();
+            if (!project.UserProjects.Any(link => link.User.Id == userId)) return Forbid();
+
+            var model = mapper.Map<Issue>(issue);
+
             project.Issues.Add(model);
             await db.SaveChangesAsync();
             return StatusCode(201);
@@ -176,8 +217,14 @@ namespace QuakeTrack.Controllers
         public virtual async Task<IActionResult> GetIssue([FromRoute][Required] int? projectId, [FromRoute][Required] int? issueId)
         {
             var project = await db.Project
-                .Include(p => p.Issues)
-                .SingleOrDefaultAsync(p => p.Id == projectId);
+                .Include(project => project.Issues)
+                .Include(project => project.UserProjects)
+                    .ThenInclude(link => link.User)
+                .SingleOrDefaultAsync(project => project.Id == projectId);
+
+            var userId = UserId();
+            if (!project.UserProjects.Any(link => link.User.Id == userId)) return Forbid();
+
             var issue = project.Issues.SingleOrDefault(i => i.Id == issueId);
             return new ObjectResult(mapper.Map<IssueViewModel>(issue));
         }
@@ -186,11 +233,17 @@ namespace QuakeTrack.Controllers
         [Route("/api/projects/{projectId}/issues/{issueId}")]
         public virtual async Task<IActionResult> UpdateIssue([FromBody] IssueViewModel patch, [FromRoute][Required] int? projectId, [FromRoute][Required] int? issueId)
         {
+            var project = await db.Project
+                .Include(project => project.Issues)
+                .Include(project => project.UserProjects)
+                    .ThenInclude(link => link.User)
+                .SingleOrDefaultAsync(project => project.Id == projectId);
+
+            var userId = UserId();
+            if (!project.UserProjects.Any(link => link.User.Id == userId)) return Forbid();
+
             var model = mapper.Map<Issue>(patch);
 
-            var project = await db.Project
-                .Include(p => p.Issues)
-                .SingleOrDefaultAsync(p => p.Id == projectId);
             var issue = project.Issues.SingleOrDefault(i => i.Id == issueId);
 
             issue.Summary = model.Summary;
@@ -211,8 +264,14 @@ namespace QuakeTrack.Controllers
         public virtual async Task<IActionResult> DeleteIssue([FromRoute][Required] int? projectId, [FromRoute][Required] int? issueId)
         {
             var project = await db.Project
-                .Include(p => p.Issues)
-                .SingleOrDefaultAsync(p => p.Id == projectId);
+                .Include(project => project.Issues)
+                .Include(project => project.UserProjects)
+                    .ThenInclude(link => link.User)
+                .SingleOrDefaultAsync(project => project.Id == projectId);
+
+            var userId = UserId();
+            if (!project.UserProjects.Any(link => link.User.Id == userId)) return Forbid();
+
             var issue = project.Issues.SingleOrDefault(i => i.Id == issueId);
             if (issue != null)
             {
@@ -223,5 +282,7 @@ namespace QuakeTrack.Controllers
 
             return Ok("Deleted");
         }
+
+        private string UserId() => httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
     }
 }
