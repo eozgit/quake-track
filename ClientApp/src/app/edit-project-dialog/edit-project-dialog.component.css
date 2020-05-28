@@ -1,0 +1,19 @@
+fa-icon {
+    cursor: pointer;
+}
+
+fa-icon {
+    opacity: 50%;
+}
+
+fa-icon:hover {
+    opacity: 100%;
+}
+
+td fa-icon {
+    opacity: 10%;
+}
+
+td fa-icon:hover {
+    opacity: 100%;
+}

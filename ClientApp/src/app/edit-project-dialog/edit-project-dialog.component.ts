@@ -4,8 +4,9 @@ import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { clone } from "lodash";
+import { faMinusCircle, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { State } from '../reducers';
-import { updateProject, addUser } from '../project/project.actions';
+import { updateProject, addUser, removeUser } from '../project/project.actions';
 import { selectCurrentProject } from '../project/project.selectors';
 import Project from '../models/project';
 
@@ -26,6 +27,8 @@ export class EditProjectDialogComponent implements OnInit {
   };
   projectId: number;
   email: string;
+  faMinusCircle = faMinusCircle;
+  faPlusCircle = faPlusCircle;
 
   constructor(private store: Store<State>) { }
 
@@ -47,6 +50,13 @@ export class EditProjectDialogComponent implements OnInit {
     this.store.dispatch(addUser({
       projectId: this.projectId,
       email: this.email
+    }));
+  }
+
+  removeUser(userId: string) {
+    this.store.dispatch(removeUser({
+      projectId: this.projectId,
+      userId
     }));
   }
 }

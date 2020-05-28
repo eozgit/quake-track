@@ -29,4 +29,8 @@ export class ApiClientService {
   addUser(id: number, email: Email) {
     return this.http.patch(`/api/projects/${id}/users`, email);
   }
+
+  removeUser(projectId: number, userId: string) {
+    return this.http.delete(`/api/projects/${projectId}/users/${userId}`);
+  }
 }

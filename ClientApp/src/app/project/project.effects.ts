@@ -99,7 +99,28 @@ export class ProjectEffects {
     return this.actions$.pipe(
 
       ofType(ProjectActions.addUserSuccess),
-      tap(action => action.data.email && alert(`${action.data.email}\nis added to the project\nas a contributor.`)),
+      map(action =>
+        ProjectActions.loadProjects()
+      ),
+    );
+  });
+
+  removeUser$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(ProjectActions.removeUser),
+      concatMap(action =>
+        this.apiClient.removeUser(action.projectId, action.userId).pipe(
+          map((data: User) => ProjectActions.removeUserSuccess({ data })),
+          catchError(error => of(ProjectActions.removeUserFailure({ error }))))
+      )
+    );
+  });
+
+  removeUserSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(ProjectActions.removeUserSuccess),
       map(action =>
         ProjectActions.loadProjects()
       ),

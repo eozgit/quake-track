@@ -80,3 +80,18 @@ export const addUserFailure = createAction(
   '[API Add User] Failure',
   props<{ error: any }>()
 );
+
+export const removeUser = createAction(
+  '[Edit Project Dialog] Remove User',
+  props<{ projectId: number, userId: string }>()
+);
+
+export const removeUserSuccess = createAction(
+  '[API Remove User] Success',
+  props<{ data: User }>()
+);
+
+export const removeUserFailure = createAction(
+  '[API Remove User] Failure',
+  props<{ error: any }>()
+);

@@ -19,13 +19,33 @@
             </div>
             <div class="form-group">
                 <label for="users">Contributors</label>
-                <ul class="list-group">
-                    <li *ngIf="(project$ | async).users.length === 0" class="list-group-item">None</li>
-                    <li *ngFor="let user of (project$ | async).users" class="list-group-item">{{ user.email }}</li>
-                </ul>
+
+                <table class="table table-sm">
+                    <thead *ngIf="(project$ | async).users.length > 0">
+                        <tr>
+                            <th scope="col">Email</th>
+                            <th scope="col">Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="(project$ | async).users.length === 0">
+                            <td>None</td>
+                        </tr>
+                        <tr *ngFor="let user of (project$ | async).users">
+                            <td>{{ user.email }}</td>
+                            <td class="text-center">
+                                <fa-icon [icon]="faMinusCircle" size="lg" class="button text-danger align-middle"
+                                    (click)="removeUser(user.id)">
+                                </fa-icon>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
             </div>
             <div class="form-group">
                 <label for="addUser">Add contributor</label>
+
                 <div class="container">
                     <div class="row">
                         <div class="col-10">
@@ -33,7 +53,9 @@
                                 placeholder="email">
                         </div>
                         <div class="col-2">
-                            <button type="button" class="btn btn-primary" (click)="addUser()">Add</button>
+                            <fa-icon [icon]="faPlusCircle" size="lg"
+                                class="button text-success align-middle text-center" (click)="addUser()">
+                            </fa-icon>
                         </div>
                     </div>
                 </div>

@@ -137,7 +137,7 @@ namespace QuakeTrack.Controllers
                 await db.SaveChangesAsync();
             }
 
-            return Ok("Removed");
+            return Ok();
         }
 
         [HttpGet]
