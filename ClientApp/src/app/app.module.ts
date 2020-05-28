@@ -25,6 +25,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteProjectDialogComponent } from './delete-project-dialog/delete-project-dialog.component';
 import { EditProjectDialogComponent } from './edit-project-dialog/edit-project-dialog.component';
+import { ToastsComponent } from './toasts/toasts.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { EditProjectDialogComponent } from './edit-project-dialog/edit-project-d
     ProjectsPageComponent,
     ProjectsTableComponent,
     DeleteProjectDialogComponent,
-    EditProjectDialogComponent
+    EditProjectDialogComponent,
+    ToastsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

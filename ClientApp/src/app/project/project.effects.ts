@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { catchError, map, concatMap, tap, throttle } from 'rxjs/operators';
+import { of, interval } from 'rxjs';
 
 import * as ProjectActions from './project.actions';
 import { ApiClientService } from '../api-client.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import User from '../models/user';
+import { ToastService } from '../toast.service';
 
 
 
@@ -45,6 +46,15 @@ export class ProjectEffects {
       map(action =>
         ProjectActions.loadProjects()
       )
+    );
+  });
+
+  deleteProjectFailure$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(ProjectActions.deleteProjectFailure),
+      throttle(() => interval(0)),
+      tap(() => this.toastService.show("Project could not be deleted. Hint: Make sure you are authorized for this action.", { classname: 'bg-warning' }))
     );
   });
 
@@ -156,6 +166,6 @@ export class ProjectEffects {
 
 
 
-  constructor(private actions$: Actions, private apiClient: ApiClientService, private modalService: NgbModal) { }
+  constructor(private actions$: Actions, private apiClient: ApiClientService, private modalService: NgbModal, private toastService: ToastService) { }
 
 }
