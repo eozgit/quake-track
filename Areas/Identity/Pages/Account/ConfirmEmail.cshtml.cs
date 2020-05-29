@@ -45,22 +45,27 @@ namespace QuakeTrack.Areas.Identity.Pages.Account
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);
             StatusMessage = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email.";
-            if (result.Succeeded) // Add user to sample projects for demo purposes
+            if (result.Succeeded) // Add sample projects for demo purposes
             {
-                var sampleNames = new List<string> { "Make a Cat Ramp", "Face Mask", "Pan Fry the Perfect Steak" };
-                var samples = db.Project
-                    .Include(project => project.UserProjects)
-                .Where(project => sampleNames.Contains(project.Name))
-                .ToList();
+                var id = 0;
+                if (db.Project.Any()) id = db.Project.Max(project => project.Id);
 
-                samples.ForEach(project =>
-                {
-                    var role = project.UserProjects.Count() == 0 ? UserProjectRole.Owner : UserProjectRole.Contributor;
-                    project.UserProjects.Add(new ApplicationUserProject { User = user, Project = project, Role = role });
-                });
+                CreateProject(user, ++id, SeedData.CreateProjectCatRamp());
+                CreateProject(user, ++id, SeedData.CreateProjectFaceMask());
+                CreateProject(user, ++id, SeedData.CreateProjectPerfectSteak());
+
                 await db.SaveChangesAsync();
             }
             return Page();
+        }
+
+        private void CreateProject(ApplicationUser user, int id, Project project)
+        {
+            project.Name = $"{id}. {project.Name}";
+            project.UserProjects = new List<ApplicationUserProject> {
+                new ApplicationUserProject { User = user, Project = project, Role = UserProjectRole.Owner }
+            };
+            db.Project.Add(project);
         }
     }
 }

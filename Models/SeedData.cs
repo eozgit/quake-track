@@ -1,33 +1,17 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using IdentityServer4.EntityFramework.Options;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using QuakeTrack.Data;
 
 namespace QuakeTrack.Models
 {
     public static class SeedData
     {
-        public static void Initialize(IServiceProvider serviceProvider)
+        public static Project CreateProjectCatRamp()
         {
-            using (var context = new ApplicationDbContext(
-                serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>(),
-                serviceProvider.GetRequiredService<IOptions<OperationalStoreOptions>>()))
+            return new Project
             {
-                if (context.Project.Any())
-                {
-                    return;
-                }
-
-                context.Project.AddRange(
-                    new Project
-                    {
-                        Name = "Make a Cat Ramp",
-                        Description = "We have this fancy cat litter box that is supposed to keep the dogs away from the box. EEEWWWWWW gross I know... Original: https://www.instructables.com/id/Why-Do-We-Want-to-Make-a-Cat-Ramp-You-Might-Ask/",
-                        Issues = new List<Issue> {
+                Name = "Make a Cat Ramp",
+                Description = "We have this fancy cat litter box that is supposed to keep the dogs away from the box. EEEWWWWWW gross I know... Original: https://www.instructables.com/id/Why-Do-We-Want-to-Make-a-Cat-Ramp-You-Might-Ask/",
+                Issues = new List<Issue> {
                             new Issue
                             {
                                 Summary = "Get supplies: Hardware",
@@ -118,13 +102,17 @@ namespace QuakeTrack.Models
                                 Status = IssueStatus.New,
                                 Priority = Priority.Medium
                             }
-                        }
-                    },
-                    new Project
-                    {
-                        Name = "Face Mask",
-                        Description = "A.B. Mask This pattern is designed to fit in two ways. First, directly over the face, similar to a surgical mask. Second, the pleats expand, allowing the mask to fit over many models of N-95... Original: https://www.instructables.com/id/AB-Mask-for-a-Nurse-by-a-Nurse/",
-                        Issues = new List<Issue> {
+                    }
+            };
+        }
+
+        public static Project CreateProjectFaceMask()
+        {
+            return new Project
+            {
+                Name = "Face Mask",
+                Description = "A.B. Mask This pattern is designed to fit in two ways. First, directly over the face, similar to a surgical mask. Second, the pleats expand, allowing the mask to fit over many models of N-95... Original: https://www.instructables.com/id/AB-Mask-for-a-Nurse-by-a-Nurse/",
+                Issues = new List<Issue> {
                             new Issue
                             {
                                 Summary = "Get supplies",
@@ -260,13 +248,17 @@ namespace QuakeTrack.Models
                                 Status = IssueStatus.New,
                                 Priority = Priority.Medium
                             }
-                        }
-                    },
-                    new Project
-                    {
-                        Name = "Pan Fry the Perfect Steak",
-                        Description = "One of my favorite meals to cook for myself is a pan fried steak. Steak is a tricky food to get right, but I have perfected my method for cooking one... Original: https://www.instructables.com/id/How-To-Pan-Fry-the-Perfect-Steak/",
-                        Issues = new List<Issue> {
+                    }
+            };
+        }
+
+        public static Project CreateProjectPerfectSteak()
+        {
+            return new Project
+            {
+                Name = "Pan Fry the Perfect Steak",
+                Description = "One of my favorite meals to cook for myself is a pan fried steak. Steak is a tricky food to get right, but I have perfected my method for cooking one... Original: https://www.instructables.com/id/How-To-Pan-Fry-the-Perfect-Steak/",
+                Issues = new List<Issue> {
                             new Issue
                             {
                                 Summary = "Get Tools and Ingredients",
@@ -330,11 +322,8 @@ namespace QuakeTrack.Models
                                 Status = IssueStatus.New,
                                 Priority = Priority.Medium
                             }
-                        }
                     }
-                );
-                context.SaveChanges();
-            }
+            };
         }
     }
 }
