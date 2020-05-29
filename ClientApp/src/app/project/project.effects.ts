@@ -49,15 +49,6 @@ export class ProjectEffects {
     );
   });
 
-  deleteProjectFailure$ = createEffect(() => {
-    return this.actions$.pipe(
-
-      ofType(ProjectActions.deleteProjectFailure),
-      throttle(() => interval(0)),
-      tap(() => this.toastService.show("Project could not be deleted. Hint: Make sure you are authorized for this action.", { classname: 'bg-warning' }))
-    );
-  });
-
 
   getProject$ = createEffect(() => {
     return this.actions$.pipe(
@@ -161,6 +152,25 @@ export class ProjectEffects {
       map(action =>
         ProjectActions.loadProjects()
       ),
+    );
+  });
+
+
+  apiResponseFailure$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(
+        ProjectActions.loadProjectsFailure,
+        ProjectActions.createProjectFailure,
+        ProjectActions.deleteProjectFailure,
+        ProjectActions.getProjectFailure,
+        ProjectActions.updateProjectFailure,
+        ProjectActions.deleteProjectFailure,
+        ProjectActions.addUserFailure,
+        ProjectActions.removeUserFailure
+      ),
+      throttle(() => interval(0)),
+      tap(() => this.toastService.show("Request failed. Please make sure you are authorized for this action.", { classname: 'bg-warning' }))
     );
   });
 

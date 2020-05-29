@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { State } from '../reducers';
 import { createProject } from '../project/project.actions';
-import { ToastService } from '../toast.service';
 
 @Component({
   selector: 'app-projects-page',
@@ -14,7 +13,7 @@ export class ProjectsPageComponent implements OnInit {
   projectName: string;
   faPlusCircle = faPlusCircle;
 
-  constructor(private store: Store<State>, private toastService: ToastService) { }
+  constructor(private store: Store<State>) { }
 
   ngOnInit() {
   }
@@ -23,7 +22,6 @@ export class ProjectsPageComponent implements OnInit {
     this.store.dispatch(createProject({
       name: this.projectName
     }));
-    this.toastService.show(`Project: ${this.projectName} created.`, { classname: 'bg-success text-light' })
     this.projectName = '';
   }
 
