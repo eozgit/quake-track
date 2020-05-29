@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
@@ -22,22 +24,28 @@ namespace QuakeTrack.Controllers
         private ApplicationDbContext db;
         private IMapper mapper;
         private IHttpContextAccessor httpContextAccessor;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public ProjectsController(ApplicationDbContext _db, IMapper _mapper, IHttpContextAccessor _httpContextAccessor)
+        public ProjectsController(ApplicationDbContext _db, IMapper _mapper, IHttpContextAccessor _httpContextAccessor, UserManager<ApplicationUser> _userManager)
         {
             db = _db;
             mapper = _mapper;
             httpContextAccessor = _httpContextAccessor;
+            userManager = _userManager;
         }
 
         [HttpGet]
         [Route("/api/projects")]
         public virtual async Task<IActionResult> GetProjects()
         {
+            var userId = UserId();
+
             var projects = await db.Project
                 .Include(project => project.UserProjects)
                     .ThenInclude(link => link.User)
+                .Where(project => project.UserProjects.Any(link => link.UserId == userId))
                 .Select(project => mapper.Map<ProjectViewModel>(project)).ToListAsync();
+
             return new ObjectResult(projects);
         }
 
@@ -45,23 +53,33 @@ namespace QuakeTrack.Controllers
         [Route("/api/projects")]
         public virtual async Task<IActionResult> CreateProject([FromBody] ProjectViewModel project)
         {
-            if (db.Project.Any(existing => existing.Name == project.Name))
-            {
-                return BadRequest();
-            }
-            else
-            {
-                db.Project.Add(mapper.Map<Project>(project));
-                await db.SaveChangesAsync();
-                return StatusCode(201);
-            }
+            if (db.Project.Any(existing => existing.Name == project.Name)) return BadRequest();
+
+            var userId = UserId();
+            var user = await userManager.FindByIdAsync(userId);
+            var model = mapper.Map<Project>(project);
+            model.UserProjects = new List<ApplicationUserProject> {
+                new ApplicationUserProject { Project = model, User = user, Role = UserProjectRole.Owner }
+            };
+            db.Project.Add(model);
+
+            await db.SaveChangesAsync();
+            return StatusCode(201);
         }
 
         [HttpGet]
         [Route("/api/projects/{projectId}")]
         public virtual async Task<IActionResult> GetProject([FromRoute][Required] int? projectId)
         {
-            return new ObjectResult(mapper.Map<ProjectViewModel>(await db.Project.FindAsync(projectId)));
+            var userId = UserId();
+
+            var project = await db.Project
+                .Include(project => project.UserProjects)
+                    .ThenInclude(link => link.User)
+                .Where(project => project.UserProjects.Any(link => link.UserId == userId))
+                .SingleOrDefaultAsync(project => project.Id == projectId);
+
+            return new ObjectResult(mapper.Map<ProjectViewModel>(project));
         }
 
         [HttpDelete]
