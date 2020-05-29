@@ -24,6 +24,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteProjectDialogComponent } from './delete-project-dialog/delete-project-dialog.component';
 import { EditProjectDialogComponent } from './edit-project-dialog/edit-project-dialog.component';
 import { ToastsComponent } from './toasts/toasts.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ToastsComponent } from './toasts/toasts.component';
     ProjectsTableComponent,
     DeleteProjectDialogComponent,
     EditProjectDialogComponent,
-    ToastsComponent
+    ToastsComponent,
+    ContactUsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -44,6 +46,7 @@ import { ToastsComponent } from './toasts/toasts.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'projects', component: ProjectsPageComponent, canActivate: [AuthorizeGuard] },
+      { path: 'contact', component: ContactUsComponent, canActivate: [AuthorizeGuard] },
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     StoreModule.forRoot(REDUCERS_TOKEN, {

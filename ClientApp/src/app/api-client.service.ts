@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import Project from './models/project';
 import Email from './models/email';
+import Message from './models/message';
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +37,9 @@ export class ApiClientService {
 
   createProject(name: string) {
     return this.http.post('/api/projects', { name });
+  }
+
+  sendEmail(email: Message) {
+    return this.http.post('/api/email', email);
   }
 }

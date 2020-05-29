@@ -6,8 +6,10 @@ using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using AutoMapper;
 using QuakeTrack.Data;
 using QuakeTrack.Models;
@@ -25,13 +27,17 @@ namespace QuakeTrack.Controllers
         private IMapper mapper;
         private IHttpContextAccessor httpContextAccessor;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IEmailSender emailSender;
+        public IConfiguration configuration;
 
-        public ProjectsController(ApplicationDbContext _db, IMapper _mapper, IHttpContextAccessor _httpContextAccessor, UserManager<ApplicationUser> _userManager)
+        public ProjectsController(ApplicationDbContext _db, IMapper _mapper, IHttpContextAccessor _httpContextAccessor, UserManager<ApplicationUser> _userManager, IEmailSender _emailSender, IConfiguration _configuration)
         {
             db = _db;
             mapper = _mapper;
             httpContextAccessor = _httpContextAccessor;
             userManager = _userManager;
+            emailSender = _emailSender;
+            configuration = _configuration;
         }
 
         [HttpGet]
@@ -291,6 +297,24 @@ namespace QuakeTrack.Controllers
             }
 
             return Ok("Deleted");
+        }
+
+        [HttpPost]
+        [Route("/api/email")]
+        public virtual async Task<IActionResult> SendEmail([FromBody][Required] MessageViewModel email)
+        {
+            var subject = "Quake-Track - Contact Us";
+            await emailSender.SendEmailAsync(configuration["AdminEmail"], subject, email.Message);
+
+            if (email.SendMeACopy)
+            {
+                var userId = UserId();
+                var user = await userManager.FindByIdAsync(userId);
+
+                await emailSender.SendEmailAsync(user.Email, subject, email.Message);
+            }
+
+            return Ok();
         }
 
         private string UserId() => httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;

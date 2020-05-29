@@ -1,0 +1,15 @@
+<p>We'd love to hear your feedback!</p>
+<form>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="sendMe" name="sendMe">
+        <label class="form-check-label" for="sendMe">
+            Send me a copy
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label for="message">Your message:</label>
+        <textarea class="form-control" name="message" [(ngModel)]="message" rows="8" maxlength="300"></textarea>
+    </div>
+    <button class="btn btn-primary" (click)="send()">Send</button>
+</form>
