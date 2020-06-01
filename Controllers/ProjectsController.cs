@@ -304,13 +304,16 @@ namespace QuakeTrack.Controllers
         public virtual async Task<IActionResult> SendEmail([FromBody][Required] MessageViewModel email)
         {
             var subject = "Quake-Track - Contact Us";
-            await emailSender.SendEmailAsync(configuration["AdminEmail"], subject, email.Message);
+
+            var userId = UserId();
+            var user = await userManager.FindByIdAsync(userId);
+
+            var body = $"{email.Message}\n\nFrom: {user.Email}";
+
+            await emailSender.SendEmailAsync(configuration["AdminEmail"], subject, body);
 
             if (email.SendMeACopy)
             {
-                var userId = UserId();
-                var user = await userManager.FindByIdAsync(userId);
-
                 await emailSender.SendEmailAsync(user.Email, subject, email.Message);
             }
 
