@@ -47,14 +47,18 @@ namespace QuakeTrack.Areas.Identity.Pages.Account
             StatusMessage = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email.";
             if (result.Succeeded) // Add sample projects for demo purposes
             {
-                var id = 0;
-                if (db.Project.Any()) id = db.Project.Max(project => project.Id);
+                var count = db.Entry(user).Collection(user => user.UserProjects).Query().Count();
+                if (count == 0)
+                {
+                    var id = 0;
+                    if (db.Project.Any()) id = db.Project.Max(project => project.Id);
 
-                CreateProject(user, ++id, SeedData.CreateProjectCatRamp());
-                CreateProject(user, ++id, SeedData.CreateProjectFaceMask());
-                CreateProject(user, ++id, SeedData.CreateProjectPerfectSteak());
+                    CreateProject(user, ++id, SeedData.CreateProjectCatRamp());
+                    CreateProject(user, ++id, SeedData.CreateProjectFaceMask());
+                    CreateProject(user, ++id, SeedData.CreateProjectPerfectSteak());
 
-                await db.SaveChangesAsync();
+                    await db.SaveChangesAsync();
+                }
             }
             return Page();
         }
