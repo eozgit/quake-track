@@ -308,7 +308,7 @@ namespace QuakeTrack.Controllers
             var userId = UserId();
             var user = await userManager.FindByIdAsync(userId);
 
-            var body = $"{email.Message}\n\nFrom: {user.Email}";
+            var body = $"<p>{email.Message}</p><p>From: {user.Email}</p>";
 
             await emailSender.SendEmailAsync(configuration["AdminEmail"], subject, body);
 
