@@ -170,7 +170,16 @@ export class ProjectEffects {
         ProjectActions.removeUserFailure
       ),
       throttle(() => interval(0)),
-      tap(() => this.toastService.show("Request failed. Please make sure you are authorized for this action.", { classname: 'bg-warning' }))
+      tap(({ error }) => {
+        var message = 'Request failed.';
+        var classname = 'bg-warning';
+        if (error.status == 403) {
+          message += ' Please check your grants.';
+        } else {
+          classname = 'bg-danger text-white';
+        }
+        this.toastService.show(message, { classname });
+      })
     );
   });
 
