@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, concatMap, tap, throttle } from 'rxjs/operators';
 import { of, interval } from 'rxjs';
@@ -167,6 +168,15 @@ export class ProjectEffects {
     );
   });
 
+  loadIssuesSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(ProjectActions.loadIssuesSuccess),
+      throttle(() => interval(0)),
+      tap(() => this.router.navigate(['/board']))
+    );
+  });
+
 
   apiResponseFailure$ = createEffect(() => {
     return this.actions$.pipe(
@@ -198,6 +208,6 @@ export class ProjectEffects {
 
 
 
-  constructor(private actions$: Actions, private apiClient: ApiClientService, private modalService: NgbModal, private toastService: ToastService) { }
+  constructor(private actions$: Actions, private apiClient: ApiClientService, private modalService: NgbModal, private toastService: ToastService, private router: Router) { }
 
 }
