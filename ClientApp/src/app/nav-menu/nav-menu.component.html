@@ -29,6 +29,9 @@
           >
             <a class="nav-link text-dark" [routerLink]="['/projects']">Projects</a>
           </li>
+          <li *ngIf="isAuthenticated$ | async" class="nav-item">
+              <a class="nav-link text-dark" [routerLink]='["/contact"]'>Contact Us</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link text-dark" href="https://github.com/eozgit/quake-track" target="_blank">Code</a>
           </li>
