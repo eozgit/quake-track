@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { faEdit, faTrash, faColumns } from '@fortawesome/free-solid-svg-icons';
@@ -21,7 +22,7 @@ export class ProjectsTableComponent implements OnInit {
   faTrash = faTrash;
   faColumns = faColumns;
 
-  constructor(private store: Store<State>, private modalService: NgbModal) { }
+  constructor(private store: Store<State>, private modalService: NgbModal, private router: Router) { }
 
   ngOnInit() {
     this.store.dispatch(loadProjects());
@@ -44,6 +45,7 @@ export class ProjectsTableComponent implements OnInit {
 
   gotoBoard(projectId: number) {
     this.store.dispatch(loadIssues({ projectId }));
+    this.router.navigate(['/board']);
   }
 
 }

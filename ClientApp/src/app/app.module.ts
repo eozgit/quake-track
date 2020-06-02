@@ -25,6 +25,7 @@ import { DeleteProjectDialogComponent } from './delete-project-dialog/delete-pro
 import { EditProjectDialogComponent } from './edit-project-dialog/edit-project-dialog.component';
 import { ToastsComponent } from './toasts/toasts.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { BoardPageComponent } from './board-page/board-page.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     DeleteProjectDialogComponent,
     EditProjectDialogComponent,
     ToastsComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    BoardPageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -47,6 +49,7 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'projects', component: ProjectsPageComponent, canActivate: [AuthorizeGuard] },
       { path: 'contact', component: ContactUsComponent, canActivate: [AuthorizeGuard] },
+      { path: 'board', component: BoardPageComponent, canActivate: [AuthorizeGuard] },
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     StoreModule.forRoot(REDUCERS_TOKEN, {
