@@ -26,6 +26,7 @@ import { EditProjectDialogComponent } from './edit-project-dialog/edit-project-d
 import { ToastsComponent } from './toasts/toasts.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { BoardPageComponent } from './board-page/board-page.component';
+import { BoardColumnComponent } from './board-column/board-column.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { BoardPageComponent } from './board-page/board-page.component';
     EditProjectDialogComponent,
     ToastsComponent,
     ContactUsComponent,
-    BoardPageComponent
+    BoardPageComponent,
+    BoardColumnComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -1,0 +1,4 @@
+<p>{{ status }} ({{ (issues$ | async).length }})</p>
+<ul>
+    <li *ngFor="let issue of issues$ | async">{{ issue.summary }}</li>
+</ul>

@@ -7,7 +7,7 @@ export default interface Issue {
     issueType: string;
     assignee: User;
     storypoints: number;
-    statue: string;
+    status: string;
     priority: string;
     users: User[];
     issues: Issue[];
