@@ -27,6 +27,7 @@ import { ToastsComponent } from './toasts/toasts.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { BoardPageComponent } from './board-page/board-page.component';
 import { BoardColumnComponent } from './board-column/board-column.component';
+import { IssueCardComponent } from './issue-card/issue-card.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { BoardColumnComponent } from './board-column/board-column.component';
     ToastsComponent,
     ContactUsComponent,
     BoardPageComponent,
-    BoardColumnComponent
+    BoardColumnComponent,
+    IssueCardComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

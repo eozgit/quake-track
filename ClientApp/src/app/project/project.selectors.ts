@@ -11,4 +11,6 @@ export const selectCurrentProjectId = createSelector(selectProjectState, project
 
 export const selectCurrentProject = createSelector(selectProjects, selectCurrentProjectId, (projects, id) => projects.find(p => p.id === id));
 
-export const selectIssues = createSelector(selectProjectState, (state, props) => state.currentProjectIssues.filter(project => project.status === props.status));
+export const selectIssues = createSelector(selectProjectState, (state, props) => state.currentProjectIssues.filter(issue => issue.status === props.status));
+
+export const selectIssue = createSelector(selectProjectState, (state, props) => state.currentProjectIssues.find(issue => issue.id === props.issueId));
