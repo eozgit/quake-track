@@ -42,4 +42,8 @@ export class ApiClientService {
   sendEmail(email: Message) {
     return this.http.post('/api/email', email);
   }
+
+  loadIssues(projectId: number) {
+    return this.http.get(`/api/projects/${projectId}/issues`);
+  }
 }

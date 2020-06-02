@@ -116,3 +116,19 @@ export const createProjectFailure = createAction(
   '[API Create Project] Failure',
   props<{ error: any }>()
 );
+
+
+export const loadIssues = createAction(
+  '[Projects Table] Load Issues',
+  props<{ projectId: number }>()
+);
+
+export const loadIssuesSuccess = createAction(
+  '[API Load Issues] Success',
+  props<{ data: any }>()
+);
+
+export const loadIssuesFailure = createAction(
+  '[API Load Issues] Failure',
+  props<{ error: any }>()
+);

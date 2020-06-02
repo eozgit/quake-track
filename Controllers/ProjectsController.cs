@@ -203,6 +203,7 @@ namespace QuakeTrack.Controllers
         {
             var project = await db.Project
                 .Include(project => project.UserProjects)
+                .Include(project => project.Issues)
                 .SingleOrDefaultAsync(project => project.Id == projectId);
 
             var userId = UserId();

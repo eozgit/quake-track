@@ -155,6 +155,18 @@ export class ProjectEffects {
     );
   });
 
+  loadIssues$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(ProjectActions.loadIssues),
+      concatMap(action =>
+        this.apiClient.loadIssues(action.projectId).pipe(
+          map(data => ProjectActions.loadIssuesSuccess({ data })),
+          catchError(error => of(ProjectActions.loadIssuesFailure({ error }))))
+      )
+    );
+  });
+
 
   apiResponseFailure$ = createEffect(() => {
     return this.actions$.pipe(
@@ -167,7 +179,8 @@ export class ProjectEffects {
         ProjectActions.updateProjectFailure,
         ProjectActions.deleteProjectFailure,
         ProjectActions.addUserFailure,
-        ProjectActions.removeUserFailure
+        ProjectActions.removeUserFailure,
+        ProjectActions.loadIssuesFailure
       ),
       throttle(() => interval(0)),
       tap(({ error }) => {
