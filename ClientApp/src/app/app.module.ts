@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -26,8 +27,7 @@ import { EditProjectDialogComponent } from './edit-project-dialog/edit-project-d
 import { ToastsComponent } from './toasts/toasts.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { BoardPageComponent } from './board-page/board-page.component';
-import { BoardColumnComponent } from './board-column/board-column.component';
-import { IssueCardComponent } from './issue-card/issue-card.component';
+import { BoardComponent } from './board/board.component';
 
 @NgModule({
   declarations: [
@@ -41,8 +41,7 @@ import { IssueCardComponent } from './issue-card/issue-card.component';
     ToastsComponent,
     ContactUsComponent,
     BoardPageComponent,
-    BoardColumnComponent,
-    IssueCardComponent
+    BoardComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -68,7 +67,8 @@ import { IssueCardComponent } from './issue-card/issue-card.component';
     EffectsModule.forRoot([]),
     EffectsModule.forFeature([ProjectEffects]),
     FontAwesomeModule,
-    NgbModule
+    NgbModule,
+    DragDropModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },

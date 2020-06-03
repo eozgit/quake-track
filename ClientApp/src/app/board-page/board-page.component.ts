@@ -11,5 +11,4 @@ export class BoardPageComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

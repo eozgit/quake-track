@@ -1,4 +1,0 @@
-<p>{{ status }} ({{ (issues$ | async).length }})</p>
-<ul class="list-group list-group-flush">
-    <app-issue-card *ngFor="let issue of issues$ | async" [issueId]="issue.id"></app-issue-card>
-</ul>
