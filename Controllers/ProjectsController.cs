@@ -209,7 +209,7 @@ namespace QuakeTrack.Controllers
             var userId = UserId();
             if (!project.UserProjects.Any(link => link.UserId == userId)) return Forbid();
 
-            var issues = project.Issues.Select(issue => mapper.Map<IssueViewModel>(issue));
+            var issues = project.Issues.OrderBy(issue => issue.Index).Select(issue => mapper.Map<IssueViewModel>(issue));
             return new ObjectResult(issues);
         }
 

@@ -1,12 +1,8 @@
-﻿using QuakeTrack.Models;
-using IdentityServer4.EntityFramework.Options;
+﻿using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using IdentityServer4.EntityFramework.Options;
+using QuakeTrack.Models;
 
 namespace QuakeTrack.Data
 {
@@ -29,17 +25,9 @@ namespace QuakeTrack.Data
             modelBuilder.Entity<ApplicationUserProject>()
                 .HasKey(c => new { c.UserId, c.ProjectId });
 
-            modelBuilder.Entity<IssueLink>()
-                .HasKey(c => new { c.ObjectId, c.SubjectId });
-
             modelBuilder.Entity<Project>().HasQueryFilter(p => !p.IsDeleted);
 
             modelBuilder.Entity<Issue>().HasQueryFilter(i => !i.IsDeleted);
-
-            modelBuilder.Entity<IssueLink>()
-                .HasOne(l => l.Subject)
-                .WithMany(s => s.LinkedAsSubject)
-                .OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 }

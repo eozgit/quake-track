@@ -37,7 +37,6 @@ namespace QuakeTrack.Models
         public int? ProjectId { get; set; }
         public Project Project { get; set; }
 
-        public virtual ICollection<IssueLink> LinkedAsObject { get; set; }
-        public virtual ICollection<IssueLink> LinkedAsSubject { get; set; }
+        public int Index { get; set; }
     }
 }

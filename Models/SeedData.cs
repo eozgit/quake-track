@@ -19,7 +19,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Done,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 0
                             },
                             new Issue
                             {
@@ -28,7 +29,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Done,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 1
                             },
                             new Issue
                             {
@@ -37,7 +39,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Test,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 0
                             },
                             new Issue
                             {
@@ -46,7 +49,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Test,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 1
                             },
                             new Issue
                             {
@@ -55,7 +59,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 3,
                                 Status = IssueStatus.Test,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 2
                             },
                             new Issue
                             {
@@ -64,7 +69,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 5,
                                 Status = IssueStatus.Develop,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 0
                             },
                             new Issue
                             {
@@ -73,7 +79,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 3,
                                 Status = IssueStatus.Develop,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 1
                             },
                             new Issue
                             {
@@ -82,7 +89,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 3,
                                 Status = IssueStatus.Develop,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 2
                             },
                             new Issue
                             {
@@ -91,7 +99,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.New,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 0
                             },
                             new Issue
                             {
@@ -100,7 +109,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.New,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 1
                             }
                     }
             };
@@ -120,7 +130,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Done,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 0
                             },
                             new Issue
                             {
@@ -129,7 +140,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Done,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 1
                             },
                             new Issue
                             {
@@ -138,7 +150,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Test,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 0
                             },
                             new Issue
                             {
@@ -147,7 +160,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Test,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 1
                             },
                             new Issue
                             {
@@ -156,7 +170,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Test,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 2
                             },
                             new Issue
                             {
@@ -165,7 +180,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Develop,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 0
                             },
                             new Issue
                             {
@@ -173,8 +189,9 @@ namespace QuakeTrack.Models
                                 Description = "With pointed pointing away from you, front of fabric side down, bring bottom side of fabric up and over top side. The fold should be the imaginary line between the top notch on left to top notch on right. Press crease with hot iron. The pleats are 1/4 inch.\r\nNext, fold fabric back down.",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
-                                Status = IssueStatus.New,
-                                Priority = Priority.Medium
+                                Status = IssueStatus.Develop,
+                                Priority = Priority.Medium,
+                                Index = 1
                             },
                             new Issue
                             {
@@ -182,8 +199,9 @@ namespace QuakeTrack.Models
                                 Description = "Sew pleats into place using a 1/2\" seam. Both Left and Right side of mask face.",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
-                                Status = IssueStatus.New,
-                                Priority = Priority.Medium
+                                Status = IssueStatus.Develop,
+                                Priority = Priority.Medium,
+                                Index = 2
                             },
                             new Issue
                             {
@@ -191,8 +209,9 @@ namespace QuakeTrack.Models
                                 Description = "Fold mask face in half at the center fold. Front side of fabric together, wrong side of fabric facing you.\r\nAlign pattern and mark top and bottom darts with pin or pencil.\r\nSew along line. - I went over it twice for good measure.",
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
-                                Status = IssueStatus.New,
-                                Priority = Priority.Medium
+                                Status = IssueStatus.Develop,
+                                Priority = Priority.Medium,
+                                Index = 3
                             },
                             new Issue
                             {
@@ -201,7 +220,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.New,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 0
                             },
                             new Issue
                             {
@@ -210,7 +230,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.New,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 1
                             },
                             new Issue
                             {
@@ -219,7 +240,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.New,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 2
                             },
                             new Issue
                             {
@@ -228,7 +250,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.New,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 3
                             },
                             new Issue
                             {
@@ -237,7 +260,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.New,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 4
                             },
                             new Issue
                             {
@@ -246,7 +270,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.New,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 5
                             }
                     }
             };
@@ -266,7 +291,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Done,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 0
                             },
                             new Issue
                             {
@@ -275,7 +301,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Done,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 1
                             },
                             new Issue
                             {
@@ -284,7 +311,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Test,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 0
                             },
                             new Issue
                             {
@@ -293,7 +321,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Test,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 1
                             },
                             new Issue
                             {
@@ -302,7 +331,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Test,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 2
                             },
                             new Issue
                             {
@@ -311,7 +341,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.Develop,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 0
                             },
                             new Issue
                             {
@@ -320,7 +351,8 @@ namespace QuakeTrack.Models
                                 IssueType = IssueType.Task,
                                 Storypoints = 2,
                                 Status = IssueStatus.New,
-                                Priority = Priority.Medium
+                                Priority = Priority.Medium,
+                                Index = 0
                             }
                     }
             };
