@@ -9,6 +9,10 @@ export const selectCurrentProjectId = createSelector(selectProjectState, project
 
 export const selectCurrentProject = createSelector(selectProjects, selectCurrentProjectId, (projects, id) => projects.find(p => p.id === id));
 
-export const selectIssues = createSelector(selectProjectState, (state, props) => state.currentProjectIssues.filter(issue => issue.status === props.status));
+export const selectIssues = createSelector(selectProjectState, (state: fromProject.State, props) => {
+    const issues = [...state.currentProjectIssues.filter(issue => issue.status === props.status)];
+    issues.sort((a, b) => a.index - b.index);
+    return issues;
+});
 
 export const selectIssue = createSelector(selectProjectState, (state, props) => state.currentProjectIssues.find(issue => issue.id === props.issueId));

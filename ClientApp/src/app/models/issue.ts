@@ -10,5 +10,5 @@ export default interface Issue {
     status: string;
     priority: string;
     users: User[];
-    issues: Issue[];
+    index: number;
 }

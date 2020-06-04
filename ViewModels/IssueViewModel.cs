@@ -4,7 +4,7 @@ namespace QuakeTrack.ViewModels
 {
     public class IssueViewModel
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         public string Summary { get; set; }
 
@@ -14,10 +14,12 @@ namespace QuakeTrack.ViewModels
 
         public virtual UserViewModel Assignee { get; set; }
 
-        public int Storypoints { get; set; }
+        public int? Storypoints { get; set; }
 
         public string Status { get; set; }
 
         public string Priority { get; set; }
+
+        public int? Index { get; set; }
     }
 }

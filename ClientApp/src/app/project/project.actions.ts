@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
-import Project from '../models/project';
 import User from '../models/user';
+import Project from '../models/project';
+import Issue from '../models/issue';
 
 export const loadProjects = createAction(
   '[Project] Load Projects'
@@ -131,4 +132,20 @@ export const loadIssuesSuccess = createAction(
 export const loadIssuesFailure = createAction(
   '[API Load Issues] Failure',
   props<{ error: any }>()
+);
+
+
+export const dragIssue = createAction(
+  '[Project Board] Drag and Drop Issue',
+  props<{ projectId: number, issue: Issue }>()
+);
+
+export const dragIssueSuccess = createAction(
+  '[API Update Issue] Success',
+  props<{ data: any, projectId: number }>()
+);
+
+export const dragIssueFailure = createAction(
+  '[API Update Issue] Failure',
+  props<{ error: any, projectId: number }>()
 );

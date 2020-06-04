@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap, tap, throttle } from 'rxjs/operators';
 import { of, interval } from 'rxjs';
+import { catchError, map, concatMap, tap, throttle } from 'rxjs/operators';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+import User from '../models/user';
 import * as ProjectActions from './project.actions';
 import { ApiClientService } from '../api-client.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import User from '../models/user';
 import { ToastService } from '../toast.service';
 
 
@@ -178,6 +178,31 @@ export class ProjectEffects {
   });
 
 
+  dragIssue$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(ProjectActions.dragIssue),
+      concatMap(action => this.apiClient.updateIssue(action.projectId, action.issue).pipe(
+        map(data => ProjectActions.dragIssueSuccess({ data, projectId: action.projectId })),
+        catchError(error => of(ProjectActions.dragIssueFailure({ error, projectId: action.projectId }))))
+      )
+    );
+  });
+
+
+  dragIssueComplete$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(ProjectActions.dragIssueSuccess, ProjectActions.dragIssueFailure),
+      concatMap(action =>
+        this.apiClient.loadIssues(action.projectId).pipe(
+          map(data => ProjectActions.loadIssuesSuccess({ data })),
+          catchError(error => of(ProjectActions.loadIssuesFailure({ error }))))
+      )
+    );
+  });
+
+
   apiResponseFailure$ = createEffect(() => {
     return this.actions$.pipe(
 
@@ -190,12 +215,13 @@ export class ProjectEffects {
         ProjectActions.deleteProjectFailure,
         ProjectActions.addUserFailure,
         ProjectActions.removeUserFailure,
-        ProjectActions.loadIssuesFailure
+        ProjectActions.loadIssuesFailure,
+        ProjectActions.dragIssueFailure
       ),
       throttle(() => interval(0)),
       tap(({ error }) => {
-        var message = 'Request failed.';
-        var classname = 'bg-warning';
+        let message = 'Request failed.';
+        let classname = 'bg-warning';
         if (error.status == 403) {
           message += ' Please check your grants.';
         } else {

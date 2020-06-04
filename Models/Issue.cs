@@ -21,22 +21,22 @@ namespace QuakeTrack.Models
         public string Description { get; set; }
 
         [Column(TypeName = "int")]
-        public IssueType IssueType { get; set; }
+        public IssueType? IssueType { get; set; }
 
         public string AssigneeId { get; set; }
         public virtual ApplicationUser Assignee { get; set; }
 
-        public int Storypoints { get; set; }
+        public int? Storypoints { get; set; }
 
         [Column(TypeName = "int")]
-        public IssueStatus Status { get; set; }
+        public IssueStatus? Status { get; set; }
 
         [Column(TypeName = "int")]
-        public Priority Priority { get; set; }
+        public Priority? Priority { get; set; }
 
         public int? ProjectId { get; set; }
         public Project Project { get; set; }
 
-        public int Index { get; set; }
+        public int? Index { get; set; }
     }
 }

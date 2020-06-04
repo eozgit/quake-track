@@ -1,8 +1,7 @@
-
 <div class="example-container">
     <h5>New</h5>
 
-    <div cdkDropList #newList="cdkDropList" [cdkDropListData]="newIssues$ | async"
+    <div id="newList" cdkDropList #newList="cdkDropList" [cdkDropListData]="newIssues$ | async"
         [cdkDropListConnectedTo]="[developList]" class="example-list" (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of newIssues$ | async" cdkDrag>
             <div class="container">
@@ -20,7 +19,7 @@
 <div class="example-container">
     <h5>Development</h5>
 
-    <div cdkDropList #developList="cdkDropList" [cdkDropListData]="developIssues$ | async"
+    <div id="developList" cdkDropList #developList="cdkDropList" [cdkDropListData]="developIssues$ | async"
         [cdkDropListConnectedTo]="[newList, testList]" class="example-list" (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of developIssues$ | async" cdkDrag>
             <div class="container">
@@ -38,7 +37,7 @@
 <div class="example-container">
     <h5>Test</h5>
 
-    <div cdkDropList #testList="cdkDropList" [cdkDropListData]="testIssues$ | async"
+    <div id="testList" cdkDropList #testList="cdkDropList" [cdkDropListData]="testIssues$ | async"
         [cdkDropListConnectedTo]="[developList, doneList]" class="example-list" (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of testIssues$ | async" cdkDrag>
             <div class="container">
@@ -56,7 +55,7 @@
 <div class="example-container">
     <h5>Done</h5>
 
-    <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="doneIssues$ | async"
+    <div id="doneList" cdkDropList #doneList="cdkDropList" [cdkDropListData]="doneIssues$ | async"
         [cdkDropListConnectedTo]="[testList]" class="example-list" (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of doneIssues$ | async" cdkDrag>
             <div class="container">

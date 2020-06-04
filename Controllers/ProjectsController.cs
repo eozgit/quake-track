@@ -209,7 +209,7 @@ namespace QuakeTrack.Controllers
             var userId = UserId();
             if (!project.UserProjects.Any(link => link.UserId == userId)) return Forbid();
 
-            var issues = project.Issues.OrderBy(issue => issue.Index).Select(issue => mapper.Map<IssueViewModel>(issue));
+            var issues = project.Issues.OrderBy(issue => issue.Id).Select(issue => mapper.Map<IssueViewModel>(issue));
             return new ObjectResult(issues);
         }
 
@@ -264,13 +264,47 @@ namespace QuakeTrack.Controllers
 
             var issue = project.Issues.SingleOrDefault(i => i.Id == issueId);
 
-            issue.Summary = model.Summary;
-            issue.Description = model.Description;
-            issue.IssueType = model.IssueType;
-            issue.Assignee = model.Assignee;
-            issue.Storypoints = model.Storypoints;
-            issue.Status = model.Status;
-            issue.Priority = model.Priority;
+
+            if (model.Status != null & model.Status != issue.Status) // issue was moved across columns, update indices of issues in the previous column
+            {
+                var previous = project.Issues.Where(_issue => _issue.Status == issue.Status).OrderBy(issue => issue.Index).ToList();
+                for (int i = 0; i < previous.Count; i++)
+                {
+                    previous[i].Index = i;
+                }
+
+            }
+            else if (model.Index != null && model.Index != issue.Index) // issue was moved within the column, update indices
+            {
+                var current = project.Issues.Where(issue => issue.Status == model.Status).OrderBy(issue => issue.Index).ToList();
+                for (int i = (int)model.Index; i < current.Count; i++)
+                {
+                    var _issue = current[i];
+                    if (_issue.Id == issueId)
+                    {
+                        _issue.Index = model.Index;
+                    }
+                    else if (i >= model.Index)
+                    {
+                        _issue.Index = i + 1;
+
+                    }
+                    else
+                    {
+                        _issue.Index = i;
+                    }
+                }
+            }
+
+
+            if (model.Summary != null) issue.Summary = model.Summary;
+            if (model.Description != null) issue.Description = model.Description;
+            if (model.IssueType != null) issue.IssueType = model.IssueType;
+            if (model.Assignee != null) issue.Assignee = model.Assignee;
+            if (model.Storypoints != null) issue.Storypoints = model.Storypoints;
+            if (model.Status != null) issue.Status = model.Status;
+            if (model.Priority != null) issue.Priority = model.Priority;
+            if (model.Index != null) issue.Index = model.Index;
 
             await db.SaveChangesAsync();
 
