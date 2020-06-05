@@ -264,38 +264,7 @@ namespace QuakeTrack.Controllers
 
             var issue = project.Issues.SingleOrDefault(i => i.Id == issueId);
 
-
-            if (model.Status != null & model.Status != issue.Status) // issue was moved across columns, update indices of issues in the previous column
-            {
-                var previous = project.Issues.Where(_issue => _issue.Status == issue.Status).OrderBy(issue => issue.Index).ToList();
-                for (int i = 0; i < previous.Count; i++)
-                {
-                    previous[i].Index = i;
-                }
-
-            }
-            else if (model.Index != null && model.Index != issue.Index) // issue was moved within the column, update indices
-            {
-                var current = project.Issues.Where(issue => issue.Status == model.Status).OrderBy(issue => issue.Index).ToList();
-                for (int i = (int)model.Index; i < current.Count; i++)
-                {
-                    var _issue = current[i];
-                    if (_issue.Id == issueId)
-                    {
-                        _issue.Index = model.Index;
-                    }
-                    else if (i >= model.Index)
-                    {
-                        _issue.Index = i + 1;
-
-                    }
-                    else
-                    {
-                        _issue.Index = i;
-                    }
-                }
-            }
-
+            SetIndices(issueId, project, model, issue);
 
             if (model.Summary != null) issue.Summary = model.Summary;
             if (model.Description != null) issue.Description = model.Description;
@@ -309,6 +278,46 @@ namespace QuakeTrack.Controllers
             await db.SaveChangesAsync();
 
             return new ObjectResult(mapper.Map<IssueViewModel>(issue));
+        }
+
+        private static void SetIndices(int? issueId, Project project, Issue model, Issue issue)
+        {
+            if (model.Status != null & model.Status != issue.Status) // issue was moved across columns, update indices of issues in the previous column
+            {
+                var previous = project.Issues.Where(_issue => _issue.Status == issue.Status).OrderBy(issue => issue.Index).ToList();
+                for (int i = 0; i < previous.Count; i++)
+                {
+                    previous[i].Index = i >= issue.Index ? i - 1 : i;
+                }
+
+                SetIndicesWithinColumn(issueId, project, model);
+            }
+            else if (model.Index != null && model.Index != issue.Index) // issue was moved within the column, update indices
+            {
+                SetIndicesWithinColumn(issueId, project, model);
+            }
+        }
+
+        private static void SetIndicesWithinColumn(int? issueId, Project project, Issue model)
+        {
+            var current = project.Issues.Where(issue => issue.Status == model.Status).OrderBy(issue => issue.Index).ToList();
+            for (int i = (int)model.Index; i < current.Count; i++)
+            {
+                var _issue = current[i];
+                if (_issue.Id == issueId)
+                {
+                    _issue.Index = model.Index;
+                }
+                else if (i >= model.Index)
+                {
+                    _issue.Index = i + 1;
+
+                }
+                else
+                {
+                    _issue.Index = i;
+                }
+            }
         }
 
         [HttpDelete]

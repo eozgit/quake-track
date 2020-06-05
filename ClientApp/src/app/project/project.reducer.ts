@@ -28,40 +28,45 @@ export const reducer = createReducer(
   on(ProjectActions.loadIssues, (state, action) => ({ ...state, currentProjectId: action.projectId })),
   on(ProjectActions.loadIssuesSuccess, (state, action) => ({ ...state, currentProjectIssues: action.data })),
   on(ProjectActions.dragIssue, (state: State, action) => {
-
-    const issue = state.currentProjectIssues.find(issue => issue.id === action.issue.id);
-    const statusChanged = issue.status !== action.issue.status;
-    let next = [];
-
-    if (statusChanged) {
-      let previousColumnIssues = state.currentProjectIssues
-        .filter(_issue => _issue.status === issue.status && _issue.id !== issue.id);
-
-      previousColumnIssues.sort((a, b) => a.index - b.index);
-
-      previousColumnIssues = previousColumnIssues
-        .map((_issue, index) => ({ ..._issue, index }));
-
-      next = [...previousColumnIssues, ...state.currentProjectIssues.filter(_issue => _issue.status !== issue.status && _issue.status !== action.issue.status)];
-    } else {
-      next = [...state.currentProjectIssues.filter(_issue => _issue.status !== issue.status)];
-    }
-
-    let currentColumnIssues = state.currentProjectIssues
-      .filter(_issue => _issue.status === action.issue.status && _issue.id !== action.issue.id);
-
-    currentColumnIssues.sort((a, b) => a.index - b.index);
-
-    currentColumnIssues = currentColumnIssues
-      .map((_issue, index) => ({ ..._issue, index: index >= action.issue.index ? index + 1 : index }));
-
-    next = [...next, ...currentColumnIssues, { ...issue, status: new TitleCasePipe().transform(action.issue.status), index: action.issue.index }];
-
-    next.sort((a, b) => a.id - b.id);
-
-    return ({ ...state, currentProjectIssues: next });
+    const currentProjectIssues = getIssues(state.currentProjectIssues, action.issue);
+    return ({ ...state, currentProjectIssues });
   }),
 
 );
+
+const getIssues = (previousIssues: Issue[], model: Issue) => {
+
+  const previous = previousIssues.find(issue => issue.id === model.id);
+  const statusChanged = previous.status !== model.status;
+  let issues = [];
+
+  if (statusChanged) {
+    let previousColumnIssues = previousIssues
+      .filter(issue => issue.status === previous.status && issue.id !== previous.id);
+
+    previousColumnIssues.sort((a, b) => a.index - b.index);
+
+    previousColumnIssues = previousColumnIssues
+      .map((issue, index) => ({ ...issue, index }));
+
+    issues = [...previousColumnIssues, ...previousIssues.filter(issue => issue.status !== previous.status && issue.status !== model.status)];
+  } else {
+    issues = [...previousIssues.filter(issue => issue.status !== previous.status)];
+  }
+
+  let currentColumnIssues = previousIssues
+    .filter(issue => issue.status === model.status && issue.id !== model.id);
+
+  currentColumnIssues.sort((a, b) => a.index - b.index);
+
+  currentColumnIssues = currentColumnIssues
+    .map((issue, index) => ({ ...issue, index: index >= model.index ? index + 1 : index }));
+
+  issues = [...issues, ...currentColumnIssues, { ...previous, status: new TitleCasePipe().transform(model.status), index: model.index }];
+
+  issues.sort((a, b) => a.id - b.id);
+
+  return issues;
+}
 
 export const PROJECT_REDUCER = new InjectionToken<any>('Project Reducer');
