@@ -227,6 +227,10 @@ namespace QuakeTrack.Controllers
 
             var model = mapper.Map<Issue>(issue);
 
+            model.Status = IssueStatus.New;
+            var max = project.Issues.Max(i => i.Index);
+            model.Index = max == null ? 0 : max + 1;
+
             project.Issues.Add(model);
             await db.SaveChangesAsync();
             return StatusCode(201);

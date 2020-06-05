@@ -8,7 +8,7 @@ import { faMinusCircle, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { State } from '../reducers';
 import { updateProject, addUser, removeUser } from '../project/project.actions';
 import { selectCurrentProject } from '../project/project.selectors';
-import Project from '../models/project';
+import { Project } from '../models';
 
 @Component({
   selector: 'app-edit-project-dialog',

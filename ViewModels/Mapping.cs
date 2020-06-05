@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using QuakeTrack.Data;
 using QuakeTrack.Models;
 
 namespace QuakeTrack.ViewModels
@@ -14,7 +15,9 @@ namespace QuakeTrack.ViewModels
                 .ForMember(dest => dest.Users, opt => opt.MapFrom<ContributorsResolver>())
                 .ReverseMap();
             CreateMap<Issue, IssueViewModel>()
-                .ReverseMap();
+                .ForMember(dest => dest.AssigneeId, opt => opt.MapFrom<AssigneeToTsResolver>())
+                .ReverseMap()
+                .ForMember(dest => dest.Assignee, opt => opt.MapFrom<AssigneeToCsResolver>());
             CreateMap<ApplicationUser, UserViewModel>()
                 .ReverseMap();
         }
@@ -31,9 +34,37 @@ namespace QuakeTrack.ViewModels
 
         public ICollection<UserViewModel> Resolve(Project source, ProjectViewModel destination, ICollection<UserViewModel> member, ResolutionContext context)
         {
-            var users = source.UserProjects?.Where(link => link.Role == UserProjectRole.Contributor).Select(link => mapper.Map<UserViewModel>(link.User)).ToList();
+            var users = source.UserProjects?.Select(link =>
+            {
+                var model = mapper.Map<UserViewModel>(link.User);
+                model.Role = link.Role.ToString();
+                return model;
+            }).ToList();
             if (users != null) users.ForEach(user => user.Role = "contributor");
             return users;
+        }
+    }
+
+    public class AssigneeToTsResolver : IValueResolver<Issue, IssueViewModel, string>
+    {
+        public string Resolve(Issue source, IssueViewModel destination, string member, ResolutionContext context)
+        {
+            return source.AssigneeId;
+        }
+    }
+
+    public class AssigneeToCsResolver : IValueResolver<IssueViewModel, Issue, ApplicationUser>
+    {
+        private ApplicationDbContext db;
+
+        public AssigneeToCsResolver(ApplicationDbContext _db)
+        {
+            db = _db;
+        }
+
+        public ApplicationUser Resolve(IssueViewModel source, Issue destination, ApplicationUser member, ResolutionContext context)
+        {
+            return db.Users.Find(source.AssigneeId);
         }
     }
 }

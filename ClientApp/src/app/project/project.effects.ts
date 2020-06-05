@@ -5,7 +5,7 @@ import { catchError, map, concatMap, tap, throttle } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import User from '../models/user';
+import { User } from '../models';
 import * as ProjectActions from './project.actions';
 import { ApiClientService } from '../api-client.service';
 import { ToastService } from '../toast.service';
@@ -156,6 +156,7 @@ export class ProjectEffects {
     );
   });
 
+
   loadIssues$ = createEffect(() => {
     return this.actions$.pipe(
 
@@ -203,6 +204,30 @@ export class ProjectEffects {
   });
 
 
+  createIssue$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(ProjectActions.createIssue),
+      concatMap(action =>
+        this.apiClient.createIssue(action.projectId, action.issue).pipe(
+          map((data) => ProjectActions.createIssueSuccess({ projectId: action.projectId, data })),
+          catchError(error => of(ProjectActions.createIssueFailure({ error }))))
+      )
+    );
+  });
+
+  createIssueSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(ProjectActions.createIssueSuccess),
+      map(action =>
+        ProjectActions.loadIssues({ projectId: action.projectId })
+      ),
+      tap(() => this.modalService.dismissAll())
+    );
+  });
+
+
   apiResponseFailure$ = createEffect(() => {
     return this.actions$.pipe(
 
@@ -216,7 +241,8 @@ export class ProjectEffects {
         ProjectActions.addUserFailure,
         ProjectActions.removeUserFailure,
         ProjectActions.loadIssuesFailure,
-        ProjectActions.dragIssueFailure
+        ProjectActions.dragIssueFailure,
+        ProjectActions.createIssueFailure
       ),
       throttle(() => interval(0)),
       tap(({ error }) => {

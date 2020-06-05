@@ -1,7 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { createReducer, on } from '@ngrx/store';
-import Project from '../models/project';
-import Issue from '../models/issue';
+import { Project, Issue } from '../models';
 import * as ProjectActions from './project.actions';
 import getIssues from './getIssues';
 

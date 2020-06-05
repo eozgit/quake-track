@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import Project from '../models/project';
+import { Project } from '../models';
 import { State } from '../reducers';
 import { selectCurrentProject } from '../project/project.selectors';
 import { CreateIssueDialogComponent } from '../create-issue-dialog/create-issue-dialog.component';
@@ -25,6 +25,5 @@ export class BoardPageComponent implements OnInit {
     const modalRef = this.modalService.open(CreateIssueDialogComponent);
     const dialog = modalRef.componentInstance as CreateIssueDialogComponent;
     dialog.modalRef = modalRef;
-    // dialog.projectId = projectId;
   }
 }

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { faEdit, faTrash, faColumns } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { loadProjects, editProject, loadIssues } from '../project/project.actions';
-import Project from '../models/project';
+import { Project } from '../models';
 import { State } from '../reducers';
 import { DeleteProjectDialogComponent } from '../delete-project-dialog/delete-project-dialog.component';
 import { selectProjects } from '../project/project.selectors';

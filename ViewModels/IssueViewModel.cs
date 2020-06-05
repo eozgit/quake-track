@@ -12,7 +12,7 @@ namespace QuakeTrack.ViewModels
 
         public string IssueType { get; set; }
 
-        public virtual UserViewModel Assignee { get; set; }
+        public virtual string AssigneeId { get; set; }
 
         public int? Storypoints { get; set; }
 

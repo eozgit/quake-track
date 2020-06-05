@@ -3,8 +3,7 @@ import { TitleCasePipe } from '@angular/common';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import Project from '../models/project';
-import Issue from '../models/issue';
+import { Project, Issue } from '../models';
 import { State } from '../reducers';
 import { dragIssue } from '../project/project.actions';
 import { selectIssues, selectCurrentProject } from '../project/project.selectors';
@@ -33,7 +32,7 @@ export class BoardComponent implements OnInit {
       id: event.previousContainer.data[event.previousIndex].id,
       status: new TitleCasePipe().transform(event.container.id.replace('List', '')),
       index: event.currentIndex,
-      summary: null, description: null, issueType: null, assignee: null, storypoints: null, priority: null, users: null
+      summary: null, description: null, issueType: null, assigneeId: null, storypoints: null, priority: null, users: null
     };
 
     let projectId;

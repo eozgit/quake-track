@@ -1,5 +1,5 @@
 import { TitleCasePipe } from '@angular/common';
-import Issue from '../models/issue';
+import { Issue } from '../models';
 
 export default (previousIssues: Issue[], model: Issue) => {
 

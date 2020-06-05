@@ -17,6 +17,31 @@
                 <textarea class="form-control" id="description" name="description" [(ngModel)]="issue.description"
                     rows="8" maxlength="300"></textarea>
             </div>
+            <div class="form-group">
+                <label for="issueType">Issue type</label>
+                <select class="form-control" id="issueType" required [(ngModel)]="issue.issueType" name="issueType">
+                    <option *ngFor="let it of issueTypes" [value]="it">{{it}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="assignee">Assignee</label>
+                <select class="form-control" id="assignee" required [(ngModel)]="issue.assigneeId" name="assignee">
+                    <option *ngFor="let user of (project$ | async).users" [value]="user.id">{{user.email}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="storypoints">Storypoints</label>
+                <select class="form-control" id="storypoints" required [(ngModel)]="issue.storypoints"
+                    name="storypoints">
+                    <option *ngFor="let point of storypoints" [value]="point">{{point}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="priority">Priority</label>
+                <select class="form-control" id="priority" required [(ngModel)]="issue.priority" name="priority">
+                    <option *ngFor="let p of priority" [value]="p">{{p}}</option>
+                </select>
+            </div>
 
         </div>
         <div class="modal-footer">

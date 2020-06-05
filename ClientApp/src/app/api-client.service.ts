@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import Project from './models/project';
-import Issue from './models/issue';
-import Email from './models/email';
-import Message from './models/message';
+import { Project, Issue, Email, Message } from './models';
 
 @Injectable({
   providedIn: 'root'
@@ -50,5 +47,9 @@ export class ApiClientService {
 
   updateIssue(projectId: number, issue: Issue) {
     return this.http.patch(`/api/projects/${projectId}/issues/${issue.id}`, issue);
+  }
+
+  createIssue(projectId: number, issue: Issue) {
+    return this.http.post(`/api/projects/${projectId}/issues`, issue);
   }
 }
