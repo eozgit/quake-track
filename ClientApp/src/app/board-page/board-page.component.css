@@ -1,3 +1,7 @@
 .header {
     margin: 35px 0 45px;
 }
+
+a {
+    cursor: pointer;
+}

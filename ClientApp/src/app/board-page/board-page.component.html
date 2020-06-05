@@ -2,4 +2,6 @@
     <h5>{{ (project$ | async).name }}</h5>
     <p>{{ (project$ | async).description }}</p>
 </div>
+
+<p><a (click)="openCreateIssue()">Create Issue <fa-icon [icon]="faPlus"></fa-icon></a></p>
 <app-board></app-board>

@@ -28,6 +28,7 @@ import { ToastsComponent } from './toasts/toasts.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { BoardPageComponent } from './board-page/board-page.component';
 import { BoardComponent } from './board/board.component';
+import { CreateIssueDialogComponent } from './create-issue-dialog/create-issue-dialog.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { BoardComponent } from './board/board.component';
     ContactUsComponent,
     BoardPageComponent,
     BoardComponent,
+    CreateIssueDialogComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
