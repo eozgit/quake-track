@@ -3,7 +3,7 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { clone } from "lodash";
+import { clone } from 'lodash';
 import { faMinusCircle, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { State } from '../reducers';
 import { updateProject, addUser, removeUser } from '../project/project.actions';
@@ -20,8 +20,8 @@ export class EditProjectDialogComponent implements OnInit {
   modalRef: NgbModalRef;
   project: Project = {
     id: null,
-    name: "",
-    description: "",
+    name: '',
+    description: '',
     issues: [],
     users: [],
   };

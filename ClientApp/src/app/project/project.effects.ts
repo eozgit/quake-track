@@ -222,7 +222,7 @@ export class ProjectEffects {
       tap(({ error }) => {
         let message = 'Request failed.';
         let classname = 'bg-warning';
-        if (error.status == 403) {
+        if (error.status === 403) {
           message += ' Please check your grants.';
         } else {
           classname = 'bg-danger text-white';
@@ -234,6 +234,11 @@ export class ProjectEffects {
 
 
 
-  constructor(private actions$: Actions, private apiClient: ApiClientService, private modalService: NgbModal, private toastService: ToastService, private router: Router) { }
+  constructor(
+    private actions$: Actions,
+    private apiClient: ApiClientService,
+    private modalService: NgbModal,
+    private toastService: ToastService,
+    private router: Router) { }
 
 }

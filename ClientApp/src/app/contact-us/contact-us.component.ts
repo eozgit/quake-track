@@ -8,8 +8,8 @@ import { ApiClientService } from '../api-client.service';
   styleUrls: ['./contact-us.component.css']
 })
 export class ContactUsComponent implements OnInit {
-  sendMe: boolean = false;
-  message: string = '';
+  sendMe = false;
+  message = '';
 
   constructor(private toastService: ToastService, private apiClient: ApiClientService) { }
 

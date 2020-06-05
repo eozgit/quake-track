@@ -1,5 +1,5 @@
-import User from "./user";
-import Issue from "./issue";
+import User from './user';
+import Issue from './issue';
 
 export default interface Project {
     id: number;
