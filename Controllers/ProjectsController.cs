@@ -50,6 +50,7 @@ namespace QuakeTrack.Controllers
                 .Include(project => project.UserProjects)
                     .ThenInclude(link => link.User)
                 .Where(project => project.UserProjects.Any(link => link.UserId == userId))
+                .OrderBy(project => project.Id)
                 .Select(project => mapper.Map<ProjectViewModel>(project)).ToListAsync();
 
             return new ObjectResult(projects);
@@ -101,7 +102,7 @@ namespace QuakeTrack.Controllers
 
             project.IsDeleted = true;
             await db.SaveChangesAsync();
-            return new ObjectResult(mapper.Map<ProjectViewModel>(project));
+            return Ok();
         }
 
         [HttpPatch]
@@ -110,6 +111,7 @@ namespace QuakeTrack.Controllers
         {
             var project = await db.Project
                 .Include(project => project.UserProjects)
+                    .ThenInclude(link => link.User)
                 .SingleOrDefaultAsync(project => project.Id == projectId);
 
             var userId = UserId();

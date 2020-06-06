@@ -31,8 +31,8 @@
                         <tr *ngIf="(project$ | async).users.length === 0">
                             <td>None</td>
                         </tr>
-                        <tr *ngFor="let user of (project$ | async).users">
-                            <td>{{ user.email }}</td>
+                        <tr *ngFor="let user of (contributors$ | async)">
+                            <td>{{ user.email }} - {{ user.role }}</td>
                             <td class="text-center">
                                 <fa-icon [icon]="faMinusCircle" size="lg" class="button text-danger align-middle"
                                     (click)="removeUser(user.id)">

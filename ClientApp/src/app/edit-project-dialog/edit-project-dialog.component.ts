@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { take, map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { clone } from 'lodash';
 import { faMinusCircle, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { State } from '../reducers';
 import { updateProject, addUser, removeUser } from '../project/project.actions';
 import { selectCurrentProject } from '../project/project.selectors';
-import { Project } from '../models';
+import { Project, User } from '../models';
 
 @Component({
   selector: 'app-edit-project-dialog',
@@ -17,6 +17,7 @@ import { Project } from '../models';
 })
 export class EditProjectDialogComponent implements OnInit {
   project$: Observable<Project> = this.store.select(selectCurrentProject);
+  contributors$: Observable<User[]> = this.project$.pipe(map(project => project.users.filter(user => user.role === 'Contributor')))
   modalRef: NgbModalRef;
   project: Project = {
     id: null,

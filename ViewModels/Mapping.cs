@@ -14,10 +14,12 @@ namespace QuakeTrack.ViewModels
             CreateMap<Project, ProjectViewModel>()
                 .ForMember(dest => dest.Users, opt => opt.MapFrom<ContributorsResolver>())
                 .ReverseMap();
+
             CreateMap<Issue, IssueViewModel>()
                 .ForMember(dest => dest.AssigneeId, opt => opt.MapFrom<AssigneeToTsResolver>())
                 .ReverseMap()
                 .ForMember(dest => dest.Assignee, opt => opt.MapFrom<AssigneeToCsResolver>());
+
             CreateMap<ApplicationUser, UserViewModel>()
                 .ReverseMap();
         }
@@ -40,7 +42,6 @@ namespace QuakeTrack.ViewModels
                 model.Role = link.Role.ToString();
                 return model;
             }).ToList();
-            if (users != null) users.ForEach(user => user.Role = "contributor");
             return users;
         }
     }
