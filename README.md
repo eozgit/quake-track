@@ -4,16 +4,16 @@ Issue tracking system, built with:
 
 -   .Net Core 3.1 Web API
 -   C#
--   Angular 8
+-   Angular 9
 -   TypeScript
 -   NgRx
 -   Bootstrap
 -   Swagger
 -   OpenAPI
 
-Live app is available on [quake-track.azurewebsites.net](https://quake-track.azurewebsites.net/)
+[Click here](https://quake-track.azurewebsites.net/) to see the live app
 
-API specs are available on [Swaggerhub](https://app.swaggerhub.com/apis-docs/eozgit/Quake-Track/v10)
+[Click here](https://app.swaggerhub.com/apis-docs/eozgit/Quake-Track/v10) to see the API specs on Swaggerhub
 
 Features:
 
