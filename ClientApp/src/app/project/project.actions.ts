@@ -163,3 +163,19 @@ export const createIssueFailure = createAction(
   '[API Create Issue] Failure',
   props<{ error: any }>()
 );
+
+
+export const updateIssue = createAction(
+  '[Edit Issue Dialog] Update Issue',
+  props<{ projectId: number, issue: Issue }>()
+);
+
+export const updateIssueSuccess = createAction(
+  '[API Update Issue] Success',
+  props<{ projectId: number, data: any }>()
+);
+
+export const updateIssueFailure = createAction(
+  '[API Update Issue] Failure',
+  props<{ error: any }>()
+);

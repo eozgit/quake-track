@@ -7,6 +7,8 @@ import { Project, Issue } from '../models';
 import { State } from '../reducers';
 import { dragIssue } from '../project/project.actions';
 import { selectIssues, selectCurrentProject } from '../project/project.selectors';
+import { EditIssueDialogComponent } from '../edit-issue-dialog/edit-issue-dialog.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-board',
@@ -20,7 +22,7 @@ export class BoardComponent implements OnInit {
   testIssues$: Observable<Issue[]> = this.store.select(selectIssues, { status: 'Test' });
   doneIssues$: Observable<Issue[]> = this.store.select(selectIssues, { status: 'Done' });
 
-  constructor(private store: Store<State>) {
+  constructor(private store: Store<State>, private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
@@ -40,6 +42,12 @@ export class BoardComponent implements OnInit {
 
     this.store.dispatch(dragIssue({ projectId, issue }));
 
+  }
+
+  editIssue() {
+    const modalRef = this.modalService.open(EditIssueDialogComponent);
+    const dialog = modalRef.componentInstance as EditIssueDialogComponent;
+    dialog.modalRef = modalRef;
   }
 
 }
