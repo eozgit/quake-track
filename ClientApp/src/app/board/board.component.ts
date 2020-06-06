@@ -44,10 +44,17 @@ export class BoardComponent implements OnInit {
 
   }
 
-  editIssue() {
+  editIssue(issue: Issue) {
     const modalRef = this.modalService.open(EditIssueDialogComponent);
     const dialog = modalRef.componentInstance as EditIssueDialogComponent;
     dialog.modalRef = modalRef;
+    dialog.issue.id = issue.id;
+    dialog.issue.summary = issue.summary;
+    dialog.issue.description = issue.description;
+    dialog.issue.issueType = issue.issueType;
+    dialog.issue.assigneeId = issue.assigneeId;
+    dialog.issue.storypoints = issue.storypoints;
+    dialog.issue.priority = issue.priority;
   }
 
 }

@@ -228,6 +228,30 @@ export class ProjectEffects {
   });
 
 
+  updateIssue$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(ProjectActions.updateIssue),
+      concatMap(action =>
+        this.apiClient.updateIssue(action.projectId, action.issue).pipe(
+          map((data) => ProjectActions.updateIssueSuccess({ projectId: action.projectId, data })),
+          catchError(error => of(ProjectActions.updateIssueFailure({ error }))))
+      )
+    );
+  });
+
+  updateIssueSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(ProjectActions.updateIssueSuccess),
+      map(action =>
+        ProjectActions.loadIssues({ projectId: action.projectId })
+      ),
+      tap(() => this.modalService.dismissAll())
+    );
+  });
+
+
   apiResponseFailure$ = createEffect(() => {
     return this.actions$.pipe(
 
@@ -242,7 +266,8 @@ export class ProjectEffects {
         ProjectActions.removeUserFailure,
         ProjectActions.loadIssuesFailure,
         ProjectActions.dragIssueFailure,
-        ProjectActions.createIssueFailure
+        ProjectActions.createIssueFailure,
+        ProjectActions.updateIssueFailure
       ),
       throttle(() => interval(0)),
       tap(({ error }) => {

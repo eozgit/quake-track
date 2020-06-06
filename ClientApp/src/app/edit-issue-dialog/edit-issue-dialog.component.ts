@@ -19,11 +19,11 @@ export class EditIssueDialogComponent implements OnInit {
     id: null,
     summary: null,
     description: null,
-    issueType: 'Task',
+    issueType: null,
     assigneeId: null,
-    storypoints: 1,
-    status: 'New',
-    priority: 'Medium',
+    storypoints: null,
+    status: null,
+    priority: null,
     index: null
   };
   issueTypes = ['Task', 'Bugfix', 'Refactor'];
