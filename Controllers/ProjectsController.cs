@@ -304,14 +304,14 @@ namespace QuakeTrack.Controllers
 
         private static void SetIndicesWithinColumn(int? issueId, Project project, Issue model)
         {
-            project.Issues.Single(issue => issue.Id == issueId).Index = model.Index;
+            if (!model.IsDeleted) project.Issues.Single(issue => issue.Id == issueId).Index = model.Index;
 
             var current = project.Issues.Where(issue => issue.Status == model.Status && issue.Id != issueId).OrderBy(issue => issue.Index).ToList();
 
             for (int i = 0; i < current.Count; i++)
             {
                 var _issue = current[i];
-                if (i >= model.Index)
+                if (i >= model.Index && !model.IsDeleted)
                 {
                     _issue.Index = i + 1;
                 }
@@ -339,10 +339,13 @@ namespace QuakeTrack.Controllers
             {
                 project.Issues.Remove(issue);
                 issue.IsDeleted = true;
+
+                SetIndicesWithinColumn(issueId, project, issue);
+
                 await db.SaveChangesAsync();
             }
 
-            return Ok("Deleted");
+            return Ok();
         }
 
         [HttpPost]

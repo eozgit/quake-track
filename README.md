@@ -3,7 +3,9 @@
 Issue tracking system, built with:
 
 -   .Net Core 3.1 Web API
+-   Entity Framework Core
 -   C#
+-   Azure SQL
 -   Angular 9
 -   TypeScript
 -   NgRx

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Issue, Project } from '../models';
 import { State } from '../reducers';
 import { selectCurrentProject } from '../project/project.selectors';
-import { updateIssue } from '../project/project.actions';
+import { updateIssue, deleteIssue } from '../project/project.actions';
 
 @Component({
   selector: 'app-edit-issue-dialog',
@@ -14,6 +14,7 @@ import { updateIssue } from '../project/project.actions';
 })
 export class EditIssueDialogComponent implements OnInit {
   modalRef: NgbModalRef;
+  confirmModalRef: NgbModalRef;
   project$: Observable<Project> = this.store.select(selectCurrentProject);
   issue: Issue = {
     id: null,
@@ -30,7 +31,7 @@ export class EditIssueDialogComponent implements OnInit {
   storypoints = [1, 2, 3, 5, 8, 13, 21];
   priority = ['Lowest', 'Low', 'Medium', 'High', 'Highest'];
 
-  constructor(private store: Store<State>) { }
+  constructor(private store: Store<State>, private modalService: NgbModal) { }
 
   ngOnInit(): void {
   }
@@ -39,6 +40,16 @@ export class EditIssueDialogComponent implements OnInit {
     let projectId;
     this.project$.subscribe(project => projectId = project.id).unsubscribe();
     this.store.dispatch(updateIssue({ projectId, issue: this.issue }));
+  }
+
+  deleteDialog(content: NgbModalRef) {
+    this.confirmModalRef = this.modalService.open(content);
+  }
+
+  delete() {
+    let projectId;
+    this.project$.subscribe(project => projectId = project.id).unsubscribe();
+    this.store.dispatch(deleteIssue({ projectId, issueId: this.issue.id }));
   }
 
 }

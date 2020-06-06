@@ -52,4 +52,8 @@ export class ApiClientService {
   createIssue(projectId: number, issue: Issue) {
     return this.http.post(`/api/projects/${projectId}/issues`, issue);
   }
+
+  deleteIssue(projectId: number, issueId: number) {
+    return this.http.delete(`/api/projects/${projectId}/issues/${issueId}`);
+  }
 }

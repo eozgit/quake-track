@@ -179,3 +179,19 @@ export const updateIssueFailure = createAction(
   '[API Update Issue] Failure',
   props<{ error: any }>()
 );
+
+
+export const deleteIssue = createAction(
+  '[Edit Issue Dialog] Delete Issue',
+  props<{ projectId: number, issueId: number }>()
+);
+
+export const deleteIssueSuccess = createAction(
+  '[API Delete Issue] Success',
+  props<{ projectId: number, data: any }>()
+);
+
+export const deleteIssueFailure = createAction(
+  '[API Delete Issue] Failure',
+  props<{ error: any }>()
+);
