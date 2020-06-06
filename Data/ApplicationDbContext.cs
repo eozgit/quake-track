@@ -25,6 +25,12 @@ namespace QuakeTrack.Data
             modelBuilder.Entity<ApplicationUserProject>()
                 .HasKey(c => new { c.UserId, c.ProjectId });
 
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(user => user.Issues)
+                .WithOne(issue => issue.Assignee)
+                .HasForeignKey(issue => issue.AssigneeId)
+                .OnDelete(DeleteBehavior.SetNull);
+
             modelBuilder.Entity<Project>().HasQueryFilter(p => !p.IsDeleted);
 
             modelBuilder.Entity<Issue>().HasQueryFilter(i => !i.IsDeleted);

@@ -304,18 +304,16 @@ namespace QuakeTrack.Controllers
 
         private static void SetIndicesWithinColumn(int? issueId, Project project, Issue model)
         {
-            var current = project.Issues.Where(issue => issue.Status == model.Status).OrderBy(issue => issue.Index).ToList();
-            for (int i = (int)model.Index; i < current.Count; i++)
+            project.Issues.Single(issue => issue.Id == issueId).Index = model.Index;
+
+            var current = project.Issues.Where(issue => issue.Status == model.Status && issue.Id != issueId).OrderBy(issue => issue.Index).ToList();
+
+            for (int i = 0; i < current.Count; i++)
             {
                 var _issue = current[i];
-                if (_issue.Id == issueId)
-                {
-                    _issue.Index = model.Index;
-                }
-                else if (i >= model.Index)
+                if (i >= model.Index)
                 {
                     _issue.Index = i + 1;
-
                 }
                 else
                 {
